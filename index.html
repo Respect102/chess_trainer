@@ -683,6 +683,91 @@ body.mode-dark .t3 h3{background:linear-gradient(180deg,#fff2a6,#f0bf4c);-webkit
 .fin-btn{margin-top:14px;position:relative;font:800 1.05rem "Nunito",sans-serif;color:#4a2a08;background:linear-gradient(180deg,#ffe58a,#f0bf4c);border:2px solid #a8700f;border-radius:14px;padding:9px 34px;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),0 3px 0 #a8700f}
 .fin-btn:focus-visible{outline:3px solid #fff3c4;outline-offset:2px}
 body.mode-dark .fin-stats span{background:rgba(255,240,210,.08);color:#cdb48c}body.mode-dark .fin-stats b{color:#f6d77a}
+/* --- decluttered play screen --- */
+#playPanel .settings,#hintCard,#coachCard{display:none!important}
+body.solo .panel{display:none}
+body.solo .app{grid-template-columns:minmax(0,720px);justify-content:center}
+@media (min-width:900px){.board-row{max-width:min(680px,calc(100vh - 230px));min-width:min(100%,420px)}.actions,.capbar,.tip{max-width:min(680px,calc(100vh - 230px))}}
+.ctl-wrap{position:relative;display:inline-flex}
+#hintBtn{position:relative}
+#hintBtn.lamp0{background:var(--soft);color:var(--muted);border-color:var(--line);box-shadow:none}
+body.skin-fantasy #hintBtn.lamp0{background:linear-gradient(180deg,#d9c79a,#bfa874);color:#6e5a3a;border-color:#8c7550;box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 3px 0 #7a6440}
+#hintBtn.lamp1 svg{fill:rgba(255,236,150,.55)}
+#hintBtn.lamp2{box-shadow:0 0 0 3px rgba(255,214,90,.55),0 0 18px 4px rgba(255,200,60,.65)!important;filter:brightness(1.12) saturate(1.2)}
+#hintBtn.lamp2 svg{fill:#fff1a8}
+#hintBtn .lamp-a{position:absolute;top:-6px;right:-6px;min-width:17px;height:17px;border-radius:9px;background:#e2524a;color:#fff;font:800 .68rem/17px "Nunito",system-ui,sans-serif;text-align:center;border:2px solid #fff;display:none}
+#hintBtn.lamp2 .lamp-a{display:block}
+#lvlBtn .pc{width:30px;height:30px;display:block}
+#lvlBtn{padding:4px 8px}
+.lvl-pop{position:absolute;left:0;bottom:calc(100% + 8px);z-index:41;min-width:230px;display:flex;flex-direction:column;gap:4px;padding:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -16px rgba(0,0,0,.45)}
+body.skin-fantasy .lvl-pop{background:radial-gradient(120% 90% at 50% 0%,#fff8e3,#f8ebc8 60%,#efdcae);border:2px solid var(--wood);box-shadow:inset 0 0 0 3px #fff4d6,0 5px 0 rgba(90,52,24,.35),0 18px 40px -16px rgba(40,25,10,.6)}
+body.skin-fantasy.mode-dark .lvl-pop{background:radial-gradient(120% 90% at 50% 0%,#40354a 0%,#2f2838 60%,#262030 100%);border-color:#a8700f;box-shadow:inset 0 0 0 3px rgba(255,226,160,.08),0 5px 0 rgba(0,0,0,.45)}
+.lvl-pop .lbl{font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 4px 4px}
+.lvl-opt{display:flex;align-items:center;gap:10px;padding:5px 10px 5px 6px;border-radius:10px;border:2px solid transparent;background:none;color:var(--ink);font:700 .95rem "Nunito",system-ui,sans-serif;cursor:pointer;text-align:left}
+.lvl-opt .pc{width:30px;height:30px;flex:none}
+.lvl-opt:hover{background:rgba(140,90,46,.12)}
+.lvl-opt[aria-checked="true"]{border-color:var(--accent,#d68f17);background:rgba(240,191,76,.18)}
+.lvl-opt small{margin-left:auto;color:var(--muted);font-weight:700;font-size:.75rem}
+#sheetBtn[aria-pressed="true"]{filter:brightness(1.1);box-shadow:inset 0 2px 6px rgba(0,0,0,.35)!important}
+/* tip under the board */
+.tip{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 12px;font-size:.95rem;line-height:1.4;width:100%;box-sizing:border-box}
+body.skin-fantasy .tip{background:rgba(251,241,214,.95);border:2px solid var(--wood);box-shadow:0 3px 0 rgba(90,52,24,.3)}
+body.skin-fantasy.mode-dark .tip{background:rgba(44,36,52,.95);border-color:#a8700f}
+.tip-head{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.tip-head .tip-ic{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ffd84a;color:#6b4a08}
+.tip-head .tip-ic svg{width:16px;height:16px}
+.tip-head b{font-family:var(--font-mono,monospace);font-size:1.05rem;white-space:nowrap}
+.tip-head .tip-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tip-head i{font-style:normal;color:var(--muted);font-size:.8rem;font-weight:800;white-space:nowrap}
+.tip.open .tip-t{white-space:normal}
+.tip-more{border-top:1px dashed var(--line);padding-top:8px}
+.tip.coach .tip-ic{background:#e2524a;color:#fff}.tip.coach.good .tip-ic{background:#6faa3e}
+.tip .badge{flex:none}
+.sq .mv-mark{position:absolute;top:2px;right:2px;z-index:4;min-width:22px;height:22px;padding:0 4px;border-radius:11px;font:800 .78rem/22px "Nunito",system-ui,sans-serif;text-align:center;color:#fff;border:2px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.35);pointer-events:none}
+.mv-mark.inacc{background:#e0a020}.mv-mark.mistake{background:#e0702a}.mv-mark.blunder{background:#d0302a}.mv-mark.best{background:#3f9a34}
+/* home screen */
+.home{position:fixed;inset:0;z-index:60;overflow-y:auto;display:flex;justify-content:center;align-items:flex-start;padding-block:max(28px,6vh) 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--bg)}
+body.skin-fantasy .home{background:inherit;background-attachment:fixed}
+body.skin-fantasy.mode-dark .home{background:inherit}
+.home .home-in h1{font-size:3rem;margin:0}
+.home-in{width:100%;max-width:860px;display:flex;flex-direction:column;align-items:center;gap:22px}
+.home h1{margin:0;font-size:2.6rem;text-align:center}
+.home-sub{margin:-12px 0 0;font-weight:700;color:var(--muted);text-align:center}
+body.skin-fantasy .home-sub{color:#fff8e0;font-size:1.15rem;text-shadow:0 1px 0 #5a3418,0 0 6px rgba(60,30,10,.8)}
+.home-cont{min-width:260px}
+.home-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;width:100%}
+.home-grid .hcard{grid-column:span 2}.home-grid .hcard:nth-child(4){grid-column:2/span 2}
+@media (max-width:760px){.home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-grid .hcard,.home-grid .hcard:nth-child(4){grid-column:auto}.home-grid .hcard:last-child{grid-column:1/-1}}
+@media (max-width:480px){.home-grid{grid-template-columns:minmax(0,1fr)}}
+.home .btn.primary.home-cont{flex:none;padding:12px 26px;font-size:1.05rem}
+.hcard{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px 18px 16px;border-radius:18px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);box-shadow:0 10px 26px -18px rgba(0,0,0,.45);transition:transform .15s}
+body.skin-fantasy .hcard{background:radial-gradient(120% 90% at 50% 0%,#fff8e3,#f8ebc8 60%,#efdcae);border:2px solid var(--wood);box-shadow:inset 0 0 0 3px #fff4d6,0 5px 0 rgba(90,52,24,.35),0 16px 26px -16px rgba(40,25,10,.55)}
+body.skin-fantasy.mode-dark .hcard{background:radial-gradient(120% 90% at 50% 0%,#40354a 0%,#2f2838 60%,#262030 100%);border-color:#a8700f;box-shadow:inset 0 0 0 3px rgba(255,226,160,.08),0 5px 0 rgba(0,0,0,.45)}
+.hcard:hover{transform:translateY(-3px)}
+.hcard:active{transform:translateY(1px)}
+.hcard:focus-visible{outline:3px solid var(--accent,#d68f17);outline-offset:3px}
+.hcard .hc-ic{display:flex;align-items:flex-end;height:58px;margin-bottom:2px}
+.hcard .hc-ic .pc{width:54px;height:54px}
+.hcard .hc-ic .pc+.pc{margin-left:-14px}
+.hcard .hc-ic svg.ico{width:50px;height:50px}
+.hcard h3{margin:0;font-size:1.3rem}
+body.skin-fantasy .hcard h3{font-family:"Kurale",Georgia,serif;font-weight:400;color:var(--wood)}
+body.skin-fantasy.mode-dark .hcard h3{color:#f0c76a}
+.hcard p{margin:0;font-size:.9rem;color:var(--muted);line-height:1.35}
+.hcard .hc-prog{margin-top:4px;width:100%;display:flex;flex-direction:column;gap:4px;font-size:.8rem;font-weight:800;color:var(--muted)}
+.hc-bar{height:7px;border-radius:5px;background:rgba(140,90,46,.2);overflow:hidden}.hc-bar i{display:block;height:100%;background:linear-gradient(180deg,#9fd46a,#5f9e34)}
+/* new game dialog */
+.newov{position:fixed;inset:0;z-index:65;display:grid;place-items:center;background:rgba(20,14,6,.45);padding:16px}
+.newcard{width:min(100%,440px);display:flex;flex-direction:column;gap:14px;padding:20px 22px;border-radius:18px;background:var(--panel);border:1px solid var(--line);color:var(--ink)}
+body.skin-fantasy .newcard{background:radial-gradient(120% 90% at 50% 0%,#fff8e3,#f8ebc8 60%,#efdcae);border:2px solid var(--wood);box-shadow:inset 0 0 0 3px #fff4d6,0 5px 0 rgba(90,52,24,.35)}
+body.skin-fantasy.mode-dark .newcard{background:radial-gradient(120% 90% at 50% 0%,#40354a 0%,#2f2838 60%,#262030 100%);border-color:#a8700f}
+.newcard h2{margin:0}
+.nl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nl-grid .lvl-opt{flex-direction:column;gap:2px;padding:8px 4px;text-align:center;font-size:.82rem;border:2px solid rgba(140,90,46,.25);background:rgba(255,255,255,.35)}
+body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
+.nl-grid .lvl-opt .pc{width:38px;height:38px}
+.newcard .acts{display:flex;gap:10px;justify-content:flex-end}
+.newcard .acts .btn{flex:none}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -729,19 +814,24 @@ body.mode-dark .fin-stats span{background:rgba(255,240,210,.08);color:#cdb48c}bo
       </div>
     </div>
     <div class="capbar" id="capBot"></div>
+    <div class="tip" id="tip" hidden aria-live="polite"></div>
     <div class="actions">
-      <button class="btn primary icon" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></button>
+      <button class="btn primary icon lamp0" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg><span class="lamp-a">А</span></button>
+      <div class="ctl-wrap" id="lvlWrap"><button class="btn icon" id="lvlBtn" type="button" aria-haspopup="true"></button><div class="lvl-pop" id="lvlPop" role="menu" hidden></div></div>
       <button class="btn icon" id="undoBtn" type="button" aria-label="Отменить ход" title="Отменить ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
       <button class="btn icon" id="flipBtn" type="button" aria-label="Перевернуть доску" title="Перевернуть доску"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4m0 16-4-4m4 4 4-4"/></svg></button>
+      <button class="btn icon" id="sheetBtn" type="button" aria-pressed="false" aria-label="Запись партии" title="Запись партии"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h10a2 2 0 0 1 2 2v12"/><path d="M6 21a2 2 0 0 1-2-2V7h12v12a2 2 0 0 0 2 2z"/><path d="M8 11h5M8 15h4"/></svg></button>
       <div class="menu-wrap">
         <button class="btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button>
         <div class="menu-pop" id="menuPop" hidden>
-          <button class="btn" id="learnBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/><path d="M22 9v6"/></svg>Обучение</button>
-          <button class="btn" id="puzBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4 7.2 16.9l.9-5.4L4.2 7.7l5.4-.8z"/><path d="M8 21h8"/></svg>Задачи на мат</button>
+          <button class="btn" id="homeBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Главный экран</button>
+          <button class="btn" id="learnBtn" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/><path d="M22 9v6"/></svg>Обучение</button>
+          <button class="btn" id="puzBtn" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4 7.2 16.9l.9-5.4L4.2 7.7l5.4-.8z"/><path d="M8 21h8"/></svg>Задачи на мат</button>
       <button class="btn" id="newBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Новая партия</button>
       <button class="btn" id="reviewBtn" type="button" title="Пошаговый разбор сыгранной партии"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11h6M11 8v6"/></svg><span id="reviewLbl">Разбор партии</span></button>
-      <button class="btn" id="autoBtn" type="button" aria-pressed="false" title="Показывать лучший ход автоматически перед каждым вашим ходом"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span class="mi-l">Автоподсказки</span><span class="mi-sw" id="autoLbl">выкл</span></button>
-      <button class="btn" id="bookBtn" type="button" title="Справочник дебютов и ловушек с разбором каждого хода"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6.5A2.5 2.5 0 0 0 4 21.5 2.5 2.5 0 0 0 6.5 24"/><path d="M8 7h8M8 11h6"/></svg><span id="bookLbl">Справочник</span></button>
+      <button class="btn" id="coachBtn" type="button" aria-pressed="true" title="После каждого вашего хода показывать, насколько он хорош"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/><path d="M8 11l2 2 4-4"/></svg><span class="mi-l">Разбор моих ходов</span><span class="mi-sw" id="coachLbl">вкл</span></button>
+      <button class="btn" id="autoBtn" hidden type="button" aria-pressed="false" title="Показывать лучший ход автоматически перед каждым вашим ходом"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span class="mi-l">Автоподсказки</span><span class="mi-sw" id="autoLbl">выкл</span></button>
+      <button class="btn" id="bookBtn" type="button" hidden title="Справочник дебютов и ловушек с разбором каждого хода"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6.5A2.5 2.5 0 0 0 4 21.5 2.5 2.5 0 0 0 6.5 24"/><path d="M8 7h8M8 11h6"/></svg><span id="bookLbl">Справочник</span></button>
       <button class="btn" id="setupBtn" type="button" title="Расставить фигуры или ввести ходы начатой партии"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>Расстановка</button>
           <button class="btn" id="setBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Настройки</button>
         </div>
@@ -924,6 +1014,28 @@ body.mode-dark .fin-stats span{background:rgba(255,240,210,.08);color:#cdb48c}bo
         <div class="field"><span class="lbl">Фигуры</span><div class="swatches" id="setSw"></div></div>
   </div>
 </div></div>
+<div class="home" id="home" hidden>
+  <div class="home-in">
+    <h1>Шахматный тренер</h1>
+    <p class="home-sub">Выберите, чем заняться</p>
+    <button class="btn primary home-cont" id="homeCont" type="button" hidden><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>Продолжить партию <small id="homeContSub" style="opacity:.8;font-weight:700"></small></button>
+    <div class="home-grid">
+      <button class="hcard" type="button" data-go="cpu"><span class="hc-ic" id="hiCpu"></span><h3>Игра с компьютером</h3><p>Шесть уровней силы — от новичка до гроссмейстера. Подсказки по лампочке.</p></button>
+      <button class="hcard" type="button" data-go="two"><span class="hc-ic" id="hiTwo"></span><h3>Игра вдвоём</h3><p>Играйте с другом за одним компьютером, ходы по очереди.</p></button>
+      <button class="hcard" type="button" data-go="learn"><span class="hc-ic"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z" fill="#3a3550" stroke="#1d1a2a"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5" fill="#4a4566" stroke="#1d1a2a"/><path d="M22 9v6" stroke="#f0bf4c" stroke-width="2.2"/><circle cx="22" cy="16" r="1.4" fill="#f0bf4c" stroke="none"/></svg></span><h3>Обучение</h3><p>Шахматы с нуля: доска, ходы фигур, шах и мат, особые правила.</p><div id="hpLearn" style="width:100%"></div></button>
+      <button class="hcard" type="button" data-go="puz"><span class="hc-ic"><svg class="ico" viewBox="0 0 24 24" stroke-linejoin="round"><path d="M12 2l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 15.3 6.8 18l1-5.8-4.2-4.1 5.8-.8z" fill="#ffd24a" stroke="#a8700f" stroke-width="1.4"/><path d="M8 21h8" stroke="#a8700f" stroke-width="2" stroke-linecap="round"/></svg></span><h3>Задачи на мат</h3><p>150 задач: мат в 1, в 2 и в 3 хода. Отметки за решённые.</p><div id="hpPuz" style="width:100%"></div></button>
+      <button class="hcard" type="button" data-go="book"><span class="hc-ic"><svg class="ico" viewBox="0 0 24 24" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6.5A2.5 2.5 0 0 0 4 21.5" fill="#b77a45" stroke="#5a3418" stroke-width="1.4"/><path d="M6.5 19H20v3H6.5a1.5 1.5 0 0 1 0-3z" fill="#fff8e3" stroke="#5a3418" stroke-width="1.2"/><path d="M9 8h7M9 11h5" stroke="#fff3d6" stroke-width="1.6" stroke-linecap="round"/></svg></span><h3>Шахматный справочник</h3><p>Дебюты и ловушки с разбором каждого хода и проверкой по памяти.</p><div id="hpBook" style="width:100%"></div></button>
+    </div>
+  </div>
+</div>
+<div class="newov" id="newov" hidden>
+  <div class="newcard" role="dialog" aria-modal="true" aria-labelledby="ngTitle">
+    <h2 id="ngTitle">Игра с компьютером</h2>
+    <div class="field"><span class="lbl">Я играю</span><div class="seg" id="ngColor" role="group" aria-label="Цвет"><button type="button" data-c="w" aria-pressed="true">Белыми</button><button type="button" data-c="b" aria-pressed="false">Чёрными</button><button type="button" data-c="r" aria-pressed="false">Случайно</button></div></div>
+    <div class="field"><span class="lbl">Сила компьютера</span><div class="nl-grid" id="ngLvl" role="radiogroup" aria-label="Сила компьютера"></div></div>
+    <div class="acts"><button class="btn" id="ngCancel" type="button">Отмена</button><button class="btn primary" id="ngGo" type="button">Играть</button></div>
+  </div>
+</div>
 <div class="fx" id="fx" hidden><canvas id="fxcv"></canvas><div class="fx-card" id="fxCard" role="status"></div></div>
 <div class="endov" id="endov" hidden><canvas id="endcv"></canvas><div class="endcard" id="endcard" role="dialog" aria-modal="true" aria-label="Итог партии"></div></div>
 <script>
@@ -1110,6 +1222,9 @@ function ChessLib(){
     }
     if(phase>24)phase=24;
     w+=((kmg*phase+keg*(24-phase))/24)|0;
+    if(phase>=12){const f=phase/24,wk=this.ks[WHITE],bk=this.ks[BLACK];
+      if((wk>>4)!==7)w-=(55*f)|0;else if(!(this.castle&3)&&((wk&7)===3||(wk&7)===4))w-=(22*f)|0;
+      if((bk>>4)!==0)w+=(55*f)|0;else if(!(this.castle&12)&&((bk&7)===3||(bk&7)===4))w+=(22*f)|0;}
     if(wb>=2)w+=30;if(bb>=2)w-=30;
     const egF=1+(24-phase)/24;
     for(let s=0;s<128;s++){
@@ -1451,6 +1566,7 @@ function dispToSq(i){const row=i>>3,col=i&7;return S.flipped?(7-row)*16+(7-col):
 function sqToDisp(s){const r=s>>4,c=s&7;return S.flipped?{row:7-r,col:7-c}:{row:r,col:c};}
 function legalTargets(from){return pos.legal().filter(m=>m.f===from);}
 function render(){
+  if(typeof updateLayout==='function')updateLayout();
   const bp=S.learn?LN.pos:S.puz?PZ.pos:S.book?BK.pos:S.review?RV.pos:pos,lastM=S.learn?LN.last:S.puz?PZ.last:S.book?BK.last:S.review?RV.last:S.last;
   const bd=S.setup?ED.b:bp.b;
   const checkSq=!S.setup&&!(S.learn&&LN.geo)&&bp.inCheck()?bp.ks[bp.side]:-1;
@@ -1467,6 +1583,7 @@ function render(){
     const pc=bd[s];let html='';
     if(pc)html+=pieceSVG(pc&7,!!(pc&WHITE),!S.setup&&drag&&drag.moved&&drag.from===s?' ghosted':'');
     if(S.learn&&LN.stars.indexOf(s)>=0)html+='<span class="ln-star"></span>';
+    if(bp===pos&&!S.setup&&lastM&&lastM.t===s){const mk=S.marks[S.ucis.length-1];if(mk&&(mk.cls==='inacc'||mk.cls==='mistake'||mk.cls==='blunder'))html+=`<span class="mv-mark ${mk.cls}">${mk.sym}</span>`;}
     const row=i>>3,col=i&7;
     if(col===0)html+=`<span class="coord rk">${8-r}</span>`;
     if(row===7)html+=`<span class="coord fl">${'abcdefgh'[c]}</span>`;
@@ -1542,7 +1659,7 @@ function renderSheet(){
   el.innerHTML=h;el.scrollTop=el.scrollHeight;
 }
 function updateButtons(){
-  $('hintBtn').disabled=S.setup||S.book||S.review||S.puz||S.learn||S.busy||!!S.over||!isUserTurn();
+  $('hintBtn').disabled=S.setup||S.book||S.review||S.puz||S.learn;
   $('undoBtn').disabled=S.setup||S.book||S.review||S.puz||S.learn||!S.ucis.length;
   $('reviewBtn').disabled=S.setup||S.book||S.puz||S.learn||(!S.review&&!S.ucis.length);$('reviewBtn').classList.toggle('on',!!S.review);$('reviewLbl').textContent=S.review?'Закрыть разбор':'Разбор партии';
   $('newBtn').disabled=S.setup||S.book||S.review||S.puz||S.learn;$('learnBtn').classList.toggle('on',!!S.learn);$('puzBtn').classList.toggle('on',!!S.puz);
@@ -1588,10 +1705,10 @@ function applyMove(m){
 }
 function cancelAll(){S.gen++;engine.cancel();S.busy=false;S.prep=null;statusOverride=null;}
 function startPrep(){
-  S.prep=null;if((!S.coach&&!S.auto)||S.setup||S.book||S.review||S.puz||S.learn||S.over||!isUserTurn())return;
+  S.prep=null;if((!S.coach&&!S.auto&&S.lamp!==1)||S.setup||S.book||S.review||S.puz||S.learn||S.over||!isUserTurn())return;
   const ply=S.ucis.length,p=analyzeAt(ply,1500,3);p.catch(()=>{});S.prep={ply,p};
   const g=S.gen;p.then(r=>{if(g===S.gen&&S.ucis.length===ply&&r.lines.length)setEval(whiteScore(r.lines[0].score,r.side));}).catch(()=>{});
-  if(S.auto)onHint();
+  if(S.auto||S.lamp===1)onHint();
 }
 function getAnalysis(ply){if(S.prep&&S.prep.ply===ply)return S.prep.p;return analyzeAt(ply,1500,3);}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -1625,7 +1742,7 @@ function afterIdle(){if(S.over||S.book||S.setup||S.review||S.puz||S.learn)return
 async function userMove(m){
   const g=S.gen,ply=S.ucis.length;
   const before=S.coach?getAnalysis(ply):null;if(before)before.catch(()=>{});
-  applyMove(m);clearHint();S.busy=true;render();
+  applyMove(m);clearHint();if(S.lamp===1)setLamp(0);S.busy=true;render();
   try{
     if(S.coach){
       const b=await before;if(g!==S.gen)return;
@@ -1684,12 +1801,15 @@ function coachReport(ply,before,after){
     if(ex)h+=`<p>Лучше было <b class="mono">${ex.san}</b> (${fmtW(whiteScore(best.score,before.side))}):</p><ul class="reasons">${ex.reasons.slice(0,3).map(x=>`<li>${x.txt}</li>`).join('')}</ul><div class="pv"><span class="lbl">Вариант</span><span class="mono">${fmtLine(prefix,best.pv,6)}</span></div>`;
   }
   $('coachBody').innerHTML=h;$('coachCard').hidden=false;
+  const bad=['inacc','mistake','blunder'].indexOf(r.cls)>=0;
+  showTip('coach',`<span class="badge ${r.cls}">${r.label}</span><span class="tip-t mono">${moveNo} ${userSan}${r.sym}</span>`,h,bad?'':'good');
+  if(!bad)tipT=setTimeout(()=>hideTip('coach'),2600);
 }
 function cap(s){return s?s[0].toUpperCase()+s.slice(1):s;}
 
 /* --- hint --- */
 let hintData=null;
-function clearHint(){hintData=null;$('hintBody').innerHTML='<p class="empty">Нажмите «Подсказать лучший ход» — движок посчитает позицию и объяснит выбор.</p>';}
+function clearHint(){hintData=null;if(typeof hideTip==='function')hideTip('hint');$('hintBody').innerHTML='<p class="empty">Нажмите «Подсказать лучший ход» — движок посчитает позицию и объяснит выбор.</p>';}
 async function onHint(){
   if(S.busy||S.over||!isUserTurn())return;
   const g=S.gen,ply=S.ucis.length;
@@ -1730,18 +1850,20 @@ function renderHint(r,ply){
     h+='</div>';
   }
   $('hintBody').innerHTML=h;
+  if(S.lamp>0)showTip('hint',`<span class="tip-ic">${TIPIC}</span><b>${ex.san}</b><span class="tip-t">${cap(ex.reasons.length?ex.reasons[0].txt:verdict(best.score,r.side))}</span>`,h);
   S.arrows=r.lines.slice(1).map(l=>({uci:l.uci,kind:'alt'})).concat([{uci:best.uci,kind:'best'}]);
   renderArrows();
 }
-$('hintBody').addEventListener('click',e=>{
-  const b=e.target.closest('.alt');if(!b||!hintData)return;
+$('hintBody').addEventListener('click',e=>{const b=e.target.closest('.alt');if(b)hintAltClick(b);});
+function hintAltClick(b){
+  if(!b||!hintData)return;
   const i=+b.dataset.i,on=b.classList.contains('on');
   document.querySelectorAll('.alt').forEach(x=>x.classList.remove('on'));
   const lines=hintData.r.lines;
   if(on){S.arrows=lines.slice(1).map(l=>({uci:l.uci,kind:'alt'})).concat([{uci:lines[0].uci,kind:'best'}]);}
   else{b.classList.add('on');S.arrows=[{uci:lines[0].uci,kind:'alt'},{uci:lines[i].uci,kind:'best'}];}
   renderArrows();
-});
+}
 
 /* --- input: click & drag --- */
 let drag=null;
@@ -1851,7 +1973,7 @@ $('level').onchange=e=>{S.level=+e.target.value;};
 $('coach').onchange=e=>{S.coach=e.target.checked;if(!S.coach){$('coachCard').hidden=true;}else if(!S.busy)startPrep();};
 
 function setUserColor(c){
-  S.userColor=c;
+  S.userColor=c;try{lvlIcon();}catch(e){}
   document.querySelectorAll('#colorSeg button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c===c?'true':'false'));
 }
 
@@ -1930,7 +2052,6 @@ function startFrom(fen,ucis){
   S.flipped=S.userColor==='b'||(S.userColor==='both'&&pos.side===BLACK);
   clearHint();$('coachCard').hidden=true;setEval(0);render();
   afterIdle();
-  if(!S.auto&&!S.over&&isUserTurn())onHint();
 }
 $('setupBtn').onclick=()=>{if(S.setup){exitSetup();render();afterIdle();}else enterSetup();};
 $('edCancel').onclick=()=>{exitSetup();render();afterIdle();};
@@ -2417,7 +2538,7 @@ function enterBook(){
   BK.catOpen=true;renderCat();bookOpen(BK.i||0);
 }
 function exitBook(){bkStopAuto();if(BK.quiz){BK.quiz=null;$('bookPanel').classList.remove('quiz');quizMsg('');$('bkQuiz').textContent='Проверь себя: сыграть по памяти';}S.selected=-1;S.targets=[];S.book=false;clearTimeout(bkTimer);bkTok++;$('bookPanel').hidden=true;$('playPanel').style.display='contents';}
-function closeBook(){exitBook();S.flipped=BK.savedFlip;S.arrows=[];setEval(BK.savedEval);render();afterIdle();}
+function closeBook(){exitBook();S.flipped=BK.savedFlip;S.arrows=[];setEval(BK.savedEval);render();afterIdle();backHome();}
 $('bookBtn').onclick=()=>{S.book?closeBook():enterBook();};
 $('bkClose2').onclick=closeBook;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.book&&$('endov').hidden)closeBook();});
@@ -3039,7 +3160,7 @@ function openPuzzles(){
   PZ.savedFlip=S.flipped;S.puz=true;$('puzPanel').hidden=false;$('playPanel').style.display='none';
   const st=pzStore();let idx=PUZ[PZ.lvl].findIndex((_,i)=>!st[PZ.lvl+'-'+i]);if(idx<0)idx=0;pzLoad(PZ.lvl,idx);
 }
-function closePuzzles(){S.puz=false;PZ.state='idle';$('puzPanel').hidden=true;$('playPanel').style.display='contents';S.flipped=PZ.savedFlip;S.arrows=[];S.selected=-1;S.targets=[];render();afterIdle();}
+function closePuzzles(){S.puz=false;PZ.state='idle';$('puzPanel').hidden=true;$('playPanel').style.display='contents';S.flipped=PZ.savedFlip;S.arrows=[];S.selected=-1;S.targets=[];render();afterIdle();backHome();}
 $('puzBtn').onclick=()=>{S.puz?closePuzzles():openPuzzles();};
 $('pzClose').onclick=closePuzzles;
 $('pzLvl').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const st=pzStore(),l=b.dataset.l;let idx=PUZ[l].findIndex((_,i)=>!st[l+'-'+i]);if(idx<0)idx=0;pzLoad(l,idx);});
@@ -3290,7 +3411,7 @@ function openLearn(){
   hideEnd();hideSay();cancelAll();
   LN.savedFlip=S.flipped;S.learn=true;$('learnPanel').hidden=false;$('playPanel').style.display='none';lnBack();
 }
-function closeLearn(){S.learn=false;LN.state='idle';$('learnPanel').hidden=true;$('playPanel').style.display='contents';S.flipped=LN.savedFlip;S.arrows=[];S.selected=-1;S.targets=[];LN.mark=null;render();afterIdle();}
+function closeLearn(){S.learn=false;LN.state='idle';$('learnPanel').hidden=true;$('playPanel').style.display='contents';S.flipped=LN.savedFlip;S.arrows=[];S.selected=-1;S.targets=[];LN.mark=null;render();afterIdle();backHome();}
 $('learnBtn').onclick=()=>{S.learn?closeLearn():openLearn();};
 $('lnClose').onclick=closeLearn;$('lnBack').onclick=lnBack;
 $('lnCat').addEventListener('click',e=>{const g=e.target.closest('[data-sec]');if(g){LN.openS[g.dataset.sec]=!LN.openS[g.dataset.sec];lnRenderList();return;}const it=e.target.closest('[data-ln]');if(it)lnOpenLesson(+it.dataset.ln);});
@@ -3466,8 +3587,99 @@ function fxFinale(kind,stats){
 $('lnRetry').onclick=()=>lnLoadEx(LN.li,LN.ei);$('lnHint').onclick=lnHint;$('lnNext').onclick=lnNextBtn;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.learn&&$('endov').hidden&&$('setov').hidden){if(LN.view==='lesson')lnBack();else closeLearn();}});
 
+/* ===== Decluttered UI: lamp, strength, record, home screen ===== */
+const LVLP=[P,N,B,R,Q,K],LVLN=['Новичок','Любитель','Разрядник','КМС','Мастер','Гроссмейстер'];
+S.lamp=S.auto?2:0;
+function setLamp(v){
+  S.lamp=v;setAuto(v===2);const b=$('hintBtn');b.classList.remove('lamp0','lamp1','lamp2');b.classList.add('lamp'+v);
+  const t=['Подсказки выключены. Нажмите — подсказка на один ход','Подсказка на один ход. Нажмите — автоподсказки','Автоподсказки включены. Нажмите — выключить'][v];
+  b.title=t;b.setAttribute('aria-label',t);
+  if(v===0){clearHint();S.arrows=S.arrows.filter(a=>a.kind!=='best'&&a.kind!=='alt');renderArrows();}
+}
+setTimeout(()=>setLamp(S.lamp),0);
+$('hintBtn').onclick=()=>{const v=(S.lamp+1)%3;setLamp(v);
+  if(v>0&&!S.busy&&!S.over&&isUserTurn()&&(!hintData||hintData.ply!==S.ucis.length))onHint();};
+/* tip under the board */
+const TIPIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>';
+let tipT=0;
+function showTip(kind,head,more,cls){const el=$('tip');clearTimeout(tipT);el.className='tip '+kind+(cls?' '+cls:'');el.dataset.kind=kind;
+  el.innerHTML=`<button type="button" class="tip-head" aria-expanded="false">${head}${more?'<i>Подробнее ▾</i>':''}</button>${more?`<div class="tip-more" hidden>${more}</div>`:''}`;el.hidden=false;}
+function hideTip(kind){const el=$('tip');if(!kind||el.dataset.kind===kind){el.hidden=true;el.dataset.kind='';clearTimeout(tipT);}}
+$('tip').addEventListener('click',e=>{
+  const h=e.target.closest('.tip-head');const el=$('tip');
+  if(h){const m=el.querySelector('.tip-more');if(!m)return;const o=m.hidden;m.hidden=!o;el.classList.toggle('open',o);h.setAttribute('aria-expanded',o?'true':'false');h.querySelector('i').textContent=o?'Скрыть ▴':'Подробнее ▾';clearTimeout(tipT);return;}
+  const b=e.target.closest('.alt');if(b)hintAltClick(b);
+});
+/* strength button */
+function lvlIcon(){$('lvlBtn').innerHTML=pieceSVG(LVLP[S.level-1],S.userColor!=='b');$('lvlBtn').title='Сила компьютера: '+LVLN[S.level-1];$('lvlBtn').setAttribute('aria-label',$('lvlBtn').title);}
+function lvlOpts(cur){return LVLN.map((n,i)=>`<button type="button" class="lvl-opt" role="menuitemradio" aria-checked="${i+1===cur}" data-lv="${i+1}">${pieceSVG(LVLP[i],true)}<span>${n}</span></button>`).join('');}
+function setLevel(v){S.level=v;$('level').value=String(v);try{localStorage.setItem('chess-level',String(v));}catch(e){}lvlIcon();}
+$('lvlBtn').onclick=e=>{e.stopPropagation();const p=$('lvlPop');if(!p.hidden){p.hidden=true;return;}p.innerHTML='<div class="lbl">Сила компьютера</div>'+lvlOpts(S.level);p.hidden=false;$('menuPop').hidden=true;};
+$('lvlPop').addEventListener('click',e=>{const b=e.target.closest('[data-lv]');if(!b)return;setLevel(+b.dataset.lv);$('lvlPop').hidden=true;});
+document.addEventListener('click',e=>{if(!$('lvlPop').hidden&&!e.target.closest('#lvlWrap'))$('lvlPop').hidden=true;});
+try{const lv=+localStorage.getItem('chess-level');if(lv>=1&&lv<=6)setLevel(lv);}catch(e){}
+lvlIcon();
+/* game record toggle */
+S.sheetOpen=false;try{S.sheetOpen=localStorage.getItem('chess-sheet')==='1';}catch(e){}
+$('sheetBtn').onclick=()=>{S.sheetOpen=!S.sheetOpen;try{localStorage.setItem('chess-sheet',S.sheetOpen?'1':'0');}catch(e){}render();};
+function updateLayout(){const other=S.setup||S.book||S.review||S.puz||S.learn;
+  document.body.classList.toggle('solo',!other&&!S.sheetOpen);$('sheetBtn').setAttribute('aria-pressed',S.sheetOpen?'true':'false');
+  const play=!other;$('lvlWrap').hidden=S.userColor==='both';$('sheetBtn').disabled=!play;$('lvlBtn').disabled=!play;
+  if(other)hideTip();}
+/* coach toggle in menu */
+function setCoach(on){S.coach=on;$('coach').checked=on;$('coachLbl').textContent=on?'вкл':'выкл';$('coachBtn').setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('chess-coach',on?'1':'0');}catch(e){}if(!on)hideTip('coach');}
+$('coachBtn').onclick=()=>{setCoach(!S.coach);if(S.coach&&!S.busy)startPrep();};
+try{const c=localStorage.getItem('chess-coach');if(c!=null)setCoach(c==='1');else setCoach(true);}catch(e){setCoach(true);}
+/* home screen */
+function homeProg(){
+  const ls=lnStore(),ld=LESSONS.filter(l=>ls[l.id]).length;
+  const ps=pzStore();let pd=0,pa=0;for(const [l] of PZL)PUZ[l].forEach((_,i)=>{pa++;if(ps[l+'-'+i])pd++;});
+  let bl=0;try{bl=Object.keys(JSON.parse(localStorage.getItem('chess-learned')||'{}')).length;}catch(e){}
+  const bar=(a,b,t)=>`<div class="hc-prog"><span>${t}</span><div class="hc-bar"><i style="width:${b?a/b*100:0}%"></i></div></div>`;
+  $('hpLearn').innerHTML=bar(ld,LESSONS.length,`Пройдено уроков: ${ld} из ${LESSONS.length}`);
+  $('hpPuz').innerHTML=bar(pd,pa,`Решено задач: ${pd} из ${pa}`);
+  $('hpBook').innerHTML=bar(Math.min(bl,BOOK.length),BOOK.length,`Выучено дебютов: ${Math.min(bl,BOOK.length)} из ${BOOK.length}`);
+}
+function homeIcons(){
+  $('hiCpu').innerHTML=pieceSVG(K,true)+pieceSVG(K,false);
+  $('hiTwo').innerHTML=pieceSVG(N,true)+pieceSVG(N,false);
+}
+function showHome(){
+  $('lvlPop').hidden=true;$('menuPop').hidden=true;$('menuBtn').setAttribute('aria-expanded','false');
+  S.homeAfter=false;
+  if(S.learn)closeLearn();if(S.puz)closePuzzles();if(S.book)closeBook();if(S.review)closeReview();if(S.setup){exitSetup();render();}
+  hideEnd();
+  homeIcons();homeProg();
+  const can=S.ucis.length>0&&!S.over;$('homeCont').hidden=!can;
+  if(can)$('homeContSub').textContent=S.userColor==='both'?'игра вдвоём':`с компьютером · ${LVLN[S.level-1]}`;
+  $('home').hidden=false;setTimeout(()=>{const f=can?$('homeCont'):document.querySelector('.hcard');if(f)f.focus({preventScroll:true});},50);
+}
+function hideHome(){$('home').hidden=true;}
+function backHome(){if(S.homeAfter){S.homeAfter=false;showHome();}}
+$('homeBtn').onclick=showHome;
+$('homeCont').onclick=hideHome;
+$('home').addEventListener('click',e=>{const c=e.target.closest('[data-go]');if(!c)return;const g=c.dataset.go;
+  if(g==='cpu'){openNew(true);return;}
+  hideHome();
+  if(g==='two'){setUserColor('both');setLamp(0);newGame();}
+  else if(g==='learn'){openLearn();S.homeAfter=true;}
+  else if(g==='puz'){openPuzzles();S.homeAfter=true;}
+  else if(g==='book'){enterBook();S.homeAfter=true;}
+});
+/* new game dialog (vs computer) */
+const NG={c:'w',lv:3,fromHome:false};
+function openNew(fromHome){NG.fromHome=fromHome;NG.c=S.userColor==='both'?'w':S.userColor;NG.lv=S.level;
+  document.querySelectorAll('#ngColor button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===NG.c?'true':'false'));
+  $('ngLvl').innerHTML=lvlOpts(NG.lv);$('newov').hidden=false;setTimeout(()=>$('ngGo').focus(),30);}
+$('ngColor').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;NG.c=b.dataset.c;document.querySelectorAll('#ngColor button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));});
+$('ngLvl').addEventListener('click',e=>{const b=e.target.closest('[data-lv]');if(!b)return;NG.lv=+b.dataset.lv;$('ngLvl').querySelectorAll('[data-lv]').forEach(x=>x.setAttribute('aria-checked',x===b?'true':'false'));});
+$('ngCancel').onclick=()=>{$('newov').hidden=true;};
+$('ngGo').onclick=()=>{const c=NG.c==='r'?(Math.random()<.5?'w':'b'):NG.c;$('newov').hidden=true;hideHome();setUserColor(c);setLevel(NG.lv);newGame();};
+$('newov').addEventListener('click',e=>{if(e.target===$('newov'))$('newov').hidden=true;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('newov').hidden){$('newov').hidden=true;e.stopPropagation();}},true);
+$('newBtn').onclick=()=>{if(S.userColor==='both')newGame();else openNew(false);};
 newGame();
-if(!S.auto)onHint();
+showHome();
 })();
 </script>
 
