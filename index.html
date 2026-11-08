@@ -687,7 +687,7 @@ body.mode-dark .fin-stats span{background:rgba(255,240,210,.08);color:#cdb48c}bo
 #playPanel .settings,#hintCard,#coachCard{display:none!important}
 body.solo .panel{display:none}
 body.solo .app{grid-template-columns:minmax(0,720px);justify-content:center}
-@media (min-width:900px){.board-row{max-width:min(680px,calc(100vh - 230px));min-width:min(100%,420px)}.actions,.capbar,.tip{max-width:min(680px,calc(100vh - 230px))}}
+@media (min-width:900px){.board-row{max-width:min(680px,calc(100vh - 230px));min-width:min(100%,420px)}.actions,.capbar{max-width:min(680px,calc(100vh - 230px))}}
 .ctl-wrap{position:relative;display:inline-flex}
 #hintBtn{position:relative}
 #hintBtn.lamp0{background:var(--soft);color:var(--muted);border-color:var(--line);box-shadow:none}
@@ -709,20 +709,20 @@ body.skin-fantasy.mode-dark .lvl-pop{background:radial-gradient(120% 90% at 50% 
 .lvl-opt[aria-checked="true"]{border-color:var(--accent,#d68f17);background:rgba(240,191,76,.18)}
 .lvl-opt small{margin-left:auto;color:var(--muted);font-weight:700;font-size:.75rem}
 #sheetBtn[aria-pressed="true"]{filter:brightness(1.1);box-shadow:inset 0 2px 6px rgba(0,0,0,.35)!important}
-/* tip under the board */
-.tip{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 12px;font-size:.95rem;line-height:1.4;width:100%;box-sizing:border-box}
-body.skin-fantasy .tip{background:rgba(251,241,214,.95);border:2px solid var(--wood);box-shadow:0 3px 0 rgba(90,52,24,.3)}
-body.skin-fantasy.mode-dark .tip{background:rgba(44,36,52,.95);border-color:#a8700f}
-.tip-head{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
-.tip-head .tip-ic{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ffd84a;color:#6b4a08}
-.tip-head .tip-ic svg{width:16px;height:16px}
-.tip-head b{font-family:var(--font-mono,monospace);font-size:1.05rem;white-space:nowrap}
-.tip-head .tip-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tip-head i{font-style:normal;color:var(--muted);font-size:.8rem;font-weight:800;white-space:nowrap}
-.tip.open .tip-t{white-space:normal}
-.tip-more{border-top:1px dashed var(--line);padding-top:8px}
-.tip.coach .tip-ic{background:#e2524a;color:#fff}.tip.coach.good .tip-ic{background:#6faa3e}
-.tip .badge{flex:none}
+.tip.side{display:flex;flex-direction:column;gap:8px;min-height:180px;max-height:calc(100vh - 140px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:.95rem;line-height:1.45;box-sizing:border-box}
+body.skin-fantasy .tip.side{background:radial-gradient(120% 90% at 50% 0%,#fff8e3,#f8ebc8 60%,#efdcae);border:2px solid var(--wood);box-shadow:inset 0 0 0 3px #fff4d6,inset 0 0 0 4px rgba(140,90,46,.25),0 5px 0 rgba(90,52,24,.35),0 14px 26px -16px rgba(40,25,10,.55)}
+body.skin-fantasy.mode-dark .tip.side{background:radial-gradient(120% 90% at 50% 0%,#40354a 0%,#2f2838 60%,#262030 100%);border-color:#a8700f;box-shadow:inset 0 0 0 3px rgba(255,226,160,.08),0 5px 0 rgba(0,0,0,.45)}
+.tip-title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+body.skin-fantasy .tip-title{font-family:"Kurale",Georgia,serif;font-weight:400;letter-spacing:.02em;text-transform:none;font-size:1.2rem;color:var(--wood)}
+body.skin-fantasy.mode-dark .tip-title{color:#f0c76a}
+.tip-ic{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ffd84a;color:#6b4a08;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.tip-ic svg{width:17px;height:17px}
+.tip.idle .tip-ic{background:var(--soft);color:var(--muted)}
+.tip.coach .tip-ic{background:#e2524a;color:#fff}.tip.coach.good .tip-ic{background:#6faa3e;color:#fff}
+.tip-body{display:flex;flex-direction:column;gap:8px}
+.tip .empty{margin:0}
+body.sheet-on .panel .sheet-wrap{display:block}
+body:not(.sheet-on) #playPanel .sheet-wrap{display:none}
 .sq .mv-mark{position:absolute;top:2px;right:2px;z-index:4;min-width:22px;height:22px;padding:0 4px;border-radius:11px;font:800 .78rem/22px "Nunito",system-ui,sans-serif;text-align:center;color:#fff;border:2px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.35);pointer-events:none}
 .mv-mark.inacc{background:#e0a020}.mv-mark.mistake{background:#e0702a}.mv-mark.blunder{background:#d0302a}.mv-mark.best{background:#3f9a34}
 /* home screen */
@@ -766,8 +766,19 @@ body.skin-fantasy.mode-dark .newcard{background:radial-gradient(120% 90% at 50% 
 .nl-grid .lvl-opt{flex-direction:column;gap:2px;padding:8px 4px;text-align:center;font-size:.82rem;border:2px solid rgba(140,90,46,.25);background:rgba(255,255,255,.35)}
 body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
 .nl-grid .lvl-opt .pc{width:38px;height:38px}
+.nl-grid .lvl-opt[aria-checked="true"]{border-color:#d68f17;background:linear-gradient(180deg,#ffe58a,#f0bf4c);color:#4a2a08;box-shadow:0 0 0 2px rgba(240,191,76,.45)}
 .newcard .acts{display:flex;gap:10px;justify-content:flex-end}
 .newcard .acts .btn{flex:none}
+
+/* classic table backgrounds */
+body.cbg{background-color:#3a2a1e;background-size:cover;background-position:center;background-attachment:fixed}
+body.cbg .topline h1,body.cbg .home .home-in h1{color:#fff7e6;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+body.cbg .home-sub{color:#f3e9d6;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+body.cbg .home{background:inherit;background-attachment:fixed}
+body.cbg .board{box-shadow:0 0 0 6px rgba(0,0,0,.35),0 0 0 7px rgba(255,255,255,.12),0 24px 50px -12px rgba(0,0,0,.75)}
+body.cbg .status{background:var(--panel);color:var(--ink);font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+body.cbg .status,body.cbg .score-pill,body.cbg .capbar{box-shadow:0 4px 14px -6px rgba(0,0,0,.5)}
+body.cbg .coord{text-shadow:none}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -814,7 +825,6 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
       </div>
     </div>
     <div class="capbar" id="capBot"></div>
-    <div class="tip" id="tip" hidden aria-live="polite"></div>
     <div class="actions">
       <button class="btn primary icon lamp0" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg><span class="lamp-a">А</span></button>
       <div class="ctl-wrap" id="lvlWrap"><button class="btn icon" id="lvlBtn" type="button" aria-haspopup="true"></button><div class="lvl-pop" id="lvlPop" role="menu" hidden></div></div>
@@ -857,7 +867,7 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
           <button type="button" data-s="b" aria-pressed="false">Чёрных</button>
         </div>
       </div>
-      <div class="field">
+      <div class="field" hidden>
         <span class="lbl">Рокировка ещё возможна</span>
         <div class="chk">
           <label><input type="checkbox" id="cK"><span>Белые 0-0</span></label>
@@ -866,7 +876,7 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
           <label><input type="checkbox" id="cq"><span>Чёрные 0-0-0</span></label>
         </div>
       </div>
-      <div class="field">
+      <div class="field" hidden>
         <label for="fen">Позиция в FEN</label>
         <div class="fenrow"><input id="fen" spellcheck="false" autocomplete="off"><button class="btn small" id="fenLoad" type="button">Загрузить</button><button class="btn small" id="fenCopy" type="button">Копировать</button></div>
       </div>
@@ -883,8 +893,8 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
         <button class="btn primary" id="edGo" type="button">Продолжить с этой позиции</button>
         <button class="btn" id="edCancel" type="button">Отмена</button>
       </div>
-      <hr class="divider">
-      <div class="field">
+      <hr class="divider" hidden>
+      <div class="field" hidden>
         <label for="pgn">Или вставьте ходы партии с самого начала</label>
         <textarea id="pgn" spellcheck="false" placeholder="1. e4 e5 2. Кf3 Кc6 3. Сb5 a6"></textarea>
         <span class="note">Подходит русская (Кр, Ф, Л, С, К) и английская (K, Q, R, B, N) запись, PGN тоже можно.</span>
@@ -977,6 +987,7 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
       </div>
     </div>
 
+    <div class="tip side" id="tip" aria-live="polite"></div>
     <div class="card hint" id="hintCard">
       <h2>Лучший ход</h2>
       <div id="hintBody"><p class="empty">Нажмите «Подсказать лучший ход» — движок посчитает позицию и объяснит выбор.</p></div>
@@ -1802,8 +1813,7 @@ function coachReport(ply,before,after){
   }
   $('coachBody').innerHTML=h;$('coachCard').hidden=false;
   const bad=['inacc','mistake','blunder'].indexOf(r.cls)>=0;
-  showTip('coach',`<span class="badge ${r.cls}">${r.label}</span><span class="tip-t mono">${moveNo} ${userSan}${r.sym}</span>`,h,bad?'':'good');
-  if(!bad)tipT=setTimeout(()=>hideTip('coach'),2600);
+  showTip('coach','Разбор вашего хода',h,bad?'':'good');
 }
 function cap(s){return s?s[0].toUpperCase()+s.slice(1):s;}
 
@@ -1850,7 +1860,7 @@ function renderHint(r,ply){
     h+='</div>';
   }
   $('hintBody').innerHTML=h;
-  if(S.lamp>0)showTip('hint',`<span class="tip-ic">${TIPIC}</span><b>${ex.san}</b><span class="tip-t">${cap(ex.reasons.length?ex.reasons[0].txt:verdict(best.score,r.side))}</span>`,h);
+  if(S.lamp>0)showTip('hint','Лучший ход',h);
   S.arrows=r.lines.slice(1).map(l=>({uci:l.uci,kind:'alt'})).concat([{uci:best.uci,kind:'best'}]);
   renderArrows();
 }
@@ -2000,7 +2010,7 @@ function edCastlePossible(){
 function edCastleUI(castle){
   const pos_=edCastlePossible();
   const map={K:['cK',1],Q:['cQ',2],k:['ck',4],q:['cq',8]};
-  for(const k in map){const el=$(map[k][0]);el.disabled=!pos_[k];if(castle!==undefined)el.checked=pos_[k]&&!!(castle&map[k][1]);else if(!pos_[k])el.checked=false;}
+  for(const k in map){const el=$(map[k][0]);el.disabled=!pos_[k];el.checked=pos_[k];}
 }
 function edFen(){
   let out='';
@@ -2560,33 +2570,128 @@ document.addEventListener('keydown',e=>{
 
 /* ===== Look & feel: animations, sound, vibration, themes, phrases, end screens ===== */
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-const PREF={skin:'fantasy',scene:'meadow',theme:'meadow',pset:'fairy',sound:true,vib:true,winSnd:'V1',msgs:true,mode:'light'};
+const PREF={skin:'fantasy',scene:'meadow',theme:'meadow',pset:'fairy',sound:true,vib:true,winSnd:'V1',msgs:true,mode:'light',cbg:'walnut'};
 try{const p=JSON.parse(localStorage.getItem('chess-look3')||'{}');Object.assign(PREF,p);}catch(e){}
 function savePref(){try{localStorage.setItem('chess-look3',JSON.stringify(PREF));}catch(e){}}
 if(!PREF.ws3){PREF.winSnd='V1';PREF.ws3=1;}
 const THEMES=[['meadow','Луговая'],['castle','Замковая'],['tavern','Таверна'],['forest','Лесная'],['runic','Руническая'],['ice','Ледяная'],['royal','Королевская'],['dragon','Драконья'],['classic','Классика'],['wood','Дерево'],['sea','Морская'],['night','Ночная']];
 const FANTASY_THEMES=['meadow','castle','tavern','forest','runic','ice','royal','dragon'];
 const PSETS=[['fairy','Сказочные'],['kingdom','Королевство'],['dragon','Драконы'],['mages','Маги'],['fireice','Огонь и лёд'],['stone','Резной камень'],['classic','Классические'],['wood','Деревянные'],['marble','Мраморные'],['metal','Золото и серебро'],['neon','Неоновые'],['glass','Стеклянные']];
-/* ---------- background scenes, low detail (viewBox 0 0 1600 900) ---------- */
-const DRAGON='<path d="M0 20Q30 0 60 18L95-22 85 22Q110 25 130 40 105 36 90 40L100 60 80 44Q65 48 50 44L30 60 40 40Q20 36-5 40 15 25 0 20Z"/><path d="M-5 40Q-40 52-62 28-40 44-6 34Z"/><path d="M128 40Q144 28 162 37L150 44Q140 47 129 45Z"/>';
-function grad(id,stops){return `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stops.map((c,i)=>`<stop offset="${(i/(stops.length-1)).toFixed(2)}" stop-color="${c}"/>`).join('')}</linearGradient>`;}
-function stars(n,seed,h,col){let r=seed,o='';const rnd=()=>{r=(r*9301+49297)%233280;return r/233280;};for(let i=0;i<n;i++)o+=`<circle cx="${(rnd()*1600).toFixed(0)}" cy="${(rnd()*h).toFixed(0)}" r="${(rnd()*1.6+.8).toFixed(1)}" fill="${col}" opacity="${(rnd()*.5+.35).toFixed(2)}"/>`;return o;}
+/* ---------- background scenes v2 (viewBox 0 0 1600 900) ---------- */
+function grad(id,stops,x2,y2){return `<linearGradient id="${id}" x1="0" y1="0" x2="${x2||0}" y2="${y2==null?1:y2}">${stops.map((c,i)=>`<stop offset="${(i/(stops.length-1)).toFixed(2)}" stop-color="${c}"/>`).join('')}</linearGradient>`;}
+function rgrad(id,stops,cx,cy,r){return `<radialGradient id="${id}" cx="${cx||.5}" cy="${cy||.5}" r="${r||.5}">${stops.map(([o,c,a])=>`<stop offset="${o}" stop-color="${c}" stop-opacity="${a==null?1:a}"/>`).join('')}</radialGradient>`;}
+function srnd(seed){let r=seed;return ()=>{r=(r*9301+49297)%233280;return r/233280;};}
+function stars(n,seed,h,col){const R=srnd(seed);let o='';for(let i=0;i<n;i++){const x=(R()*1600).toFixed(0),y=(R()*h).toFixed(0),rr=(R()*1.6+.5).toFixed(1);o+=`<circle cx="${x}" cy="${y}" r="${rr}" fill="${col}" opacity="${(R()*.6+.4).toFixed(2)}"/>`;if(R()<.08)o+=`<path d="M${x} ${y-7}v14M${x-7} ${y}h14" stroke="${col}" stroke-width="1" opacity=".7"/>`;}return o;}
+function cloud(x,y,s,c,sh,op){s=s||1;return `<g transform="translate(${x} ${y}) scale(${s})" opacity="${op||.92}"><ellipse cx="0" cy="12" rx="120" ry="24" fill="${sh||'#cfe2ee'}"/><circle cx="-60" cy="0" r="34" fill="${c||'#fff'}"/><circle cx="-10" cy="-18" r="46" fill="${c||'#fff'}"/><circle cx="48" cy="-6" r="38" fill="${c||'#fff'}"/><circle cx="92" cy="6" r="24" fill="${c||'#fff'}"/><ellipse cx="0" cy="10" rx="118" ry="18" fill="${c||'#fff'}"/></g>`;}
+function treeR(x,y,s,c1,c2,c3){s=s||1;return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-6 0h12l-2-50h-8z" fill="#7a5233"/><circle cx="-26" cy="-58" r="30" fill="${c2}"/><circle cx="22" cy="-60" r="32" fill="${c2}"/><circle cx="0" cy="-88" r="36" fill="${c1}"/><circle cx="-14" cy="-98" r="16" fill="${c3}" opacity=".7"/><circle cx="18" cy="-70" r="10" fill="${c3}" opacity=".45"/></g>`;}
+function pine(x,y,s,c1,c2,snow){s=s||1;return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-5" y="-14" width="10" height="16" fill="#6b4a2f"/><path d="M0-120L-34-58h14L-44-14h88L20-58h14z" fill="${c1}"/><path d="M0-120L-34-58h14L-44-14h44z" fill="${c2}" opacity=".55"/>${snow?`<path d="M0-120l-14 26 8-4 6 6 6-6 8 4zM-30-60l10-2 6 5 8-6 8 6 8-5 10 2-6-8h-28z" fill="#fff"/>`:''}</g>`;}
+function castle(x,y,s,wall,shade,roof,win,flag){s=s||1;win=win||'#5a6b7a';return `<g transform="translate(${x} ${y}) scale(${s})">
+ <rect x="-90" y="-70" width="180" height="70" fill="${wall}"/><rect x="-90" y="-70" width="180" height="70" fill="${shade}" opacity=".0"/>
+ <path d="M-90-70h18v-12h16v12h18v-12h16v12h18v-12h16v12h18v-12h16v12h18v-12h16v12h18" fill="none" stroke="${wall}" stroke-width="0"/>
+ <g fill="${wall}"><rect x="-90" y="-84" width="16" height="16"/><rect x="-58" y="-84" width="16" height="16"/><rect x="-26" y="-84" width="16" height="16"/><rect x="10" y="-84" width="16" height="16"/><rect x="42" y="-84" width="16" height="16"/><rect x="74" y="-84" width="16" height="16"/></g>
+ <rect x="-124" y="-130" width="40" height="130" fill="${wall}"/><rect x="-124" y="-130" width="14" height="130" fill="${shade}"/><rect x="84" y="-130" width="40" height="130" fill="${wall}"/><rect x="84" y="-130" width="14" height="130" fill="${shade}"/>
+ <rect x="-26" y="-170" width="52" height="100" fill="${wall}"/><rect x="-26" y="-170" width="16" height="100" fill="${shade}"/>
+ <path d="M-130-130l26-58 26 58zM78-130l26-58 26 58zM-32-170l32-70 32 70z" fill="${roof}"/><path d="M-104-188l-26 58h12zM104-188l-26 58h12zM0-240l-32 70h14z" fill="#000" opacity=".15"/>
+ <path d="M0-240v-30" stroke="#6b4a2f" stroke-width="3"/><path d="M0-270l26 8-26 8z" fill="${flag||'#e2524a'}"/>
+ <g fill="${win}"><rect x="-110" y="-100" width="10" height="18" rx="5"/><rect x="100" y="-100" width="10" height="18" rx="5"/><rect x="-6" y="-140" width="12" height="22" rx="6"/><rect x="-50" y="-52" width="10" height="16" rx="5"/><rect x="40" y="-52" width="10" height="16" rx="5"/></g>
+ <path d="M-16 0v-34a16 16 0 0 1 32 0V0z" fill="#5a3a24"/></g>`;}
+function house(x,y,s,wall,roof,win){s=s||1;return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-40" y="-50" width="80" height="50" fill="${wall}"/><path d="M-50-48L0-92l50 44z" fill="${roof}"/><path d="M0-92l-50 44h14z" fill="#000" opacity=".12"/><rect x="18" y="-100" width="12" height="26" fill="${wall}"/><rect x="-28" y="-36" width="16" height="16" fill="${win}"/><rect x="10" y="-36" width="16" height="16" fill="${win}"/><path d="M-8 0v-22h16V0z" fill="#6b4a2f"/></g>`;}
+function birds(x,y,n,c){let o='';for(let i=0;i<n;i++){const dx=x+i*34+(i%2)*10,dy=y+(i%3)*14-(i%2)*8;o+=`<path d="M${dx-10} ${dy}q5-7 10 0q5-7 10 0" fill="none" stroke="${c||'#4a5866'}" stroke-width="2.4" stroke-linecap="round"/>`;}return o;}
+function flowers(n,seed,y0,y1,cols){const R=srnd(seed);let o='';for(let i=0;i<n;i++){let x=R()*1600;if(x>380&&x<1220&&R()<.75)x=R()<.5?R()*380:1220+R()*380;const y=y0+R()*(y1-y0),c=cols[Math.floor(R()*cols.length)],r=2.5+R()*3*(y/900);o+=`<g fill="${c}"><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}"/></g><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(r*.4).toFixed(1)}" fill="#fff6c4"/>`;}return o;}
+function grass(n,seed,y0,y1,c){const R=srnd(seed);let o='';for(let i=0;i<n;i++){const x=(R()*1600).toFixed(0),y=(y0+R()*(y1-y0)).toFixed(0),h=(8+R()*12).toFixed(0);o+=`M${x} ${y}l-4-${h}M${x} ${y}l2-${h}M${x} ${y}l6-${(h*.8).toFixed(0)}`;}return `<path d="${o}" stroke="${c}" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;}
+function rays(cx,cy,c,op){let o='';for(let i=0;i<7;i++){const a=-.9+i*.3,w=.06;o+=`<path d="M${cx} ${cy}L${(cx+Math.cos(a-w)*1400).toFixed(0)} ${(cy+Math.sin(a-w)*1400).toFixed(0)}L${(cx+Math.cos(a+w)*1400).toFixed(0)} ${(cy+Math.sin(a+w)*1400).toFixed(0)}z"/>`;}return `<g fill="${c}" opacity="${op}">${o}</g>`;}
+const MTN_FAR='M0 520L120 430 230 470 360 360 470 420 560 380 690 300 800 380 900 340 1020 250 1130 340 1240 300 1360 380 1470 330 1600 400V900H0z';
+const MTN_SNOW='M690 300l-38 32 22-4 16 14 14-12 24 6zM1020 250l-44 40 26-6 18 14 16-14 26 6zM360 360l-32 30 18-4 14 10 12-10 20 4z';
 const HILL1='M0 600C260 520 520 540 800 570s560-20 800-60V900H0z',HILL2='M0 700c300-50 560-40 820-10s520 20 780-20V900H0z',HILL3='M0 800c300-30 560-20 820 0s520 10 780-20V900H0z';
+const DRAGON='<path d="M2 40C14 44 24 40 34 36L40 30 46 4 54 24 62 0 64 26 70 28C76 22 82 18 90 18L99 22 90 26C84 26 80 30 76 34 72 42 62 46 52 46L54 54H48L46 46H32V54H26L28 46C20 48 10 46 2 40Z"/>';
 const SCENES={
- meadow:{t:'Луг и замок',svg:()=>`<defs>${grad('s',['#a8d8ef','#e6f3ee','#f4eccf'])}</defs><rect width="1600" height="900" fill="url(#s)"/><g fill="#fff" opacity=".7"><ellipse cx="300" cy="160" rx="150" ry="40"/><ellipse cx="1220" cy="220" rx="170" ry="42"/></g><path d="${HILL1}" fill="#c3dba6"/><g fill="#bcc7cf"><rect x="1180" y="505" width="110" height="60"/><rect x="1168" y="474" width="26" height="91"/><rect x="1276" y="474" width="26" height="91"/><rect x="1222" y="458" width="26" height="107"/></g><g fill="#d6604d"><path d="M1164 474l17-34 17 34zM1272 474l17-34 17 34zM1218 458l17-38 17 38z"/></g><rect x="1228" y="535" width="14" height="30" rx="7" fill="#8f9ba6"/><path d="${HILL2}" fill="#a3c77f"/><path d="${HILL3}" fill="#86b063"/>`},
- forest:{t:'Лесная поляна',svg:()=>`<defs>${grad('s',['#dcefc4','#f4f2cc','#e9f0bd'])}</defs><rect width="1600" height="900" fill="url(#s)"/><g fill="#fffbe0" opacity=".3"><path d="M720 0h140L1060 900H880zM940 0h60l260 900h-110z"/></g><path d="M0 560q60-80 120 0t120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0 120 0V900H0z" fill="#86ae63" opacity=".8"/><path d="${HILL2}" fill="#a9cf7c"/><path d="${HILL3}" fill="#8dbd5f"/>`},
- lake:{t:'Горное озеро',svg:()=>`<defs>${grad('s',['#98cdee','#d6ecf6','#eff6f1'])}</defs><rect width="1600" height="900" fill="url(#s)"/><path d="M0 580L300 330 520 470 760 260 1020 480 1240 330 1600 540V640H0z" fill="#a9b6c8"/><path d="M760 260l50 50-50 14-50-14zM300 330l36 36-36 10-36-10zM1240 330l40 40-40 10-40-10z" fill="#fff"/><rect y="620" width="1600" height="130" fill="#98c8e0"/><path d="M0 740c260-30 520-20 800 0s520 10 800-20V900H0z" fill="#8cb76a"/>`},
- sunset:{t:'Деревня на закате',svg:()=>`<defs>${grad('s',['#ffa785','#ffc690','#ffe4ad'])}</defs><rect width="1600" height="900" fill="url(#s)"/><circle cx="800" cy="540" r="130" fill="#fff1c0" opacity=".85"/><path d="M0 600c240-60 480-60 760-20s560 20 840-30V900H0z" fill="#d397a6"/><g fill="#8a6478"><rect x="1180" y="470" width="30" height="110"/><path d="M1195 470l-70-50 6-8 70 50zM1195 470l50-70 8 6-50 70zM1195 470l70 50-6 8-70-50zM1195 470l-50 70-8-6 50-70z"/></g><path d="${HILL2}" fill="#b98399"/><path d="${HILL3}" fill="#dcae78"/>`},
- winter:{t:'Зимний замок',svg:()=>`<defs>${grad('s',['#bfdff3','#e8f4fb','#f8fbfd'])}</defs><rect width="1600" height="900" fill="url(#s)"/><path d="M0 600c260-70 520-60 800-30s560 20 800-40V900H0z" fill="#e3edf6"/><g fill="#c3cfdd"><path d="M700 570V460h40v-40l20-40 20 40v40h40v-60l20-40 20 40v60h40v110z"/></g><g fill="#7ba6d8"><path d="M740 420l20-40 20 40zM820 400l20-40 20 40z"/></g><path d="${HILL2}" fill="#f2f7fb"/><path d="${HILL3}" fill="#ffffff"/>`},
- night:{t:'Волшебная ночь',svg:()=>`<defs>${grad('s',['#1a2250','#2e2c6c','#56408a'])}</defs><rect width="1600" height="900" fill="url(#s)"/>${stars(60,3,560,'#fff')}<circle cx="1180" cy="230" r="100" fill="#fff4d2"/><g fill="#1d1a3e" transform="translate(1080 180) scale(1.1)">${DRAGON}</g><path d="${HILL1}" fill="#2f2c5a"/><path d="${HILL3}" fill="#211e44"/>`},
- harbor:{t:'Морская гавань',svg:()=>`<defs>${grad('s',['#97d2f2','#dcf1fa','#f6f2dc'])}${grad('w',['#5aa6d4','#3f88bf'])}</defs><rect width="1600" height="900" fill="url(#s)"/><g fill="#fff" opacity=".7"><ellipse cx="420" cy="170" rx="150" ry="38"/></g><rect y="580" width="1600" height="320" fill="url(#w)"/><path d="M1220 900V600c50-60 130-80 210-70s130 50 170 60V900z" fill="#9a8a70"/><g transform="translate(1400 430)"><path d="M-20 110L-13 0h26l7 110z" fill="#fff"/><path d="M-17 70h34l-3-24h-28z" fill="#d6604d"/><path d="M-20-2L0-26 20-2z" fill="#d6604d"/></g><path d="M0 840c300-20 600-20 900 0s500 10 700-10V900H0z" fill="#f1dcaa"/>`},
- dragon:{t:'Драконья долина',svg:()=>`<defs>${grad('s',['#5e2030','#b4473a','#ec9a55'])}</defs><rect width="1600" height="900" fill="url(#s)"/><path d="M0 640L260 440 520 560 780 360 1040 560 1300 400 1600 560V900H0z" fill="#432530"/><circle cx="780" cy="360" r="40" fill="#ff9a3e" opacity=".45"/><g fill="#2a1520" transform="translate(300 160) scale(1.6)">${DRAGON}</g><path d="${HILL3}" fill="#2a161c"/>`}
+ meadow:{t:'Луг и замок',svg:()=>`<defs>${grad('s',['#7fc2ea','#bfe2f3','#eef6e8'])}${rgrad('sun',[[0,'#fffbe0',.95],[.25,'#fff3b0',.55],[1,'#fff3b0',0]])}${grad('m',['#9cbfd8','#c4d9e4'])}${grad('h1',['#bcd99a','#a6cc84'])}${grad('h2',['#9fca72','#86b85d'])}${grad('h3',['#7fb257','#6a9f48'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/><circle cx="260" cy="150" r="300" fill="url(#sun)"/>${rays(260,150,'#fffbe0',.18)}
+  ${cloud(560,150,1.1)}${cloud(1240,110,1.3)}${cloud(1500,260,.8)}${cloud(120,330,.7)}
+  <path d="${MTN_FAR}" fill="url(#m)" opacity=".85"/><path d="${MTN_SNOW}" fill="#fff" opacity=".85"/>
+  <path d="${HILL1}" fill="url(#h1)"/>${castle(1300,560,.85,'#d9d3c7','#b9b2a5','#d6604d','#5a6b7a','#3f7fd0')}
+  ${treeR(1120,575,.7,'#6faa3e','#5a9634','#9fd46a')}${treeR(1460,560,.75,'#6faa3e','#5a9634','#9fd46a')}
+  <path d="${HILL2}" fill="url(#h2)"/>${treeR(110,700,1.2,'#5f9e34','#4e8a2a','#8cc65a')}${treeR(250,690,.9,'#6faa3e','#5a9634','#9fd46a')}${treeR(1520,705,1.1,'#5f9e34','#4e8a2a','#8cc65a')}
+  <path d="M1600 900C1400 820 1300 760 1180 720s-160-30-200-20" fill="none" stroke="#e8d7a8" stroke-width="40" stroke-linecap="round" opacity=".8"/>
+  <path d="${HILL3}" fill="url(#h3)"/>${grass(140,7,790,900,'#5a9634')}${flowers(110,11,720,890,['#ff7b7b','#ffd84a','#fff','#c48bff','#ff9ad5'])}${birds(820,170,4,'#4a5866')}`},
+ forest:{t:'Лесная поляна',svg:()=>`<defs>${grad('s',['#f6f0c8','#e8f0c6','#cfe3b0'])}${grad('f1',['#a9c9a0','#93b98a'])}${grad('f2',['#6f9f5a','#5d8c4a'])}${grad('g',['#9cc96a','#7fb24e'])}${rgrad('glow',[[0,'#fffbe0',.9],[1,'#fffbe0',0]])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/><ellipse cx="800" cy="120" rx="520" ry="260" fill="url(#glow)"/>${rays(800,-60,'#fffbe0',.22)}
+  ${[...Array(18)].map((_,i)=>pine(i*95+20,560+(i%3)*14,.9+(i%4)*.12,'#9cbf95','#86aa80')).join('')}
+  <path d="M0 600c200-30 420-20 640-6 260 16 560 10 960-20V900H0z" fill="url(#f1)"/>
+  ${pine(60,700,1.7,'#4e7f3c','#3d6a2f')}${pine(190,690,1.35,'#5a8c45','#467536')}${pine(320,715,1.1,'#5a8c45','#467536')}${pine(1290,712,1.15,'#5a8c45','#467536')}${pine(1420,690,1.4,'#4e7f3c','#3d6a2f')}${pine(1550,705,1.7,'#4e7f3c','#3d6a2f')}
+  <path d="M0 720c300-40 560-30 820-6s520 16 780-14V900H0z" fill="url(#g)"/>
+  <g><path d="M210 812c0-18 30-30 50-30s50 12 50 30z" fill="#e2524a"/><rect x="250" y="810" width="20" height="28" rx="6" fill="#fff4e0"/><circle cx="240" cy="798" r="5" fill="#fff"/><circle cx="276" cy="794" r="4" fill="#fff"/><path d="M1340 832c0-14 22-22 36-22s36 8 36 22z" fill="#e2884a"/><rect x="1368" y="830" width="16" height="22" rx="5" fill="#fff4e0"/></g>
+  ${grass(160,3,760,900,'#5f9640')}${flowers(70,5,760,890,['#fff','#ffd84a','#ff9ad5'])}
+  ${[...Array(16)].map((_,i)=>{const R=srnd(i+40);return `<circle cx="${(R()*1600).toFixed(0)}" cy="${(380+R()*380).toFixed(0)}" r="${(2+R()*2).toFixed(1)}" fill="#fff6a8" opacity=".85"/>`;}).join('')}`},
+ lake:{t:'Горное озеро',svg:()=>`<defs>${grad('s',['#6fb3e0','#b8dcf0','#e9f4f6'])}${grad('m1',['#7d98b8','#a9bfd4'])}${grad('m2',['#5f7f9f','#86a3bd'])}${grad('w',['#8cc4e4','#5a9ac6'])}${grad('sh',['#8fbf6a','#6e9f4e'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/>${cloud(320,140,1)}${cloud(1300,180,1.2)}
+  <path d="M0 560L180 360 330 470 520 250 700 450 860 320 1020 470 1200 230 1380 420 1600 300V620H0z" fill="url(#m1)"/>
+  <path d="M520 250l-56 70 30-10 26 22 22-20 34 10zM1200 230l-60 76 34-12 26 22 24-20 36 10zM180 360l-40 50 22-6 18 14 16-12 24 6z" fill="#fff"/>
+  <path d="M0 620L240 470 420 560 640 420 860 580 1100 460 1340 590 1600 480V640H0z" fill="url(#m2)"/>
+  <rect y="630" width="1600" height="270" fill="url(#w)"/>
+  <g opacity=".28" transform="translate(0 1262) scale(1 -1)"><path d="M0 620L240 470 420 560 640 420 860 580 1100 460 1340 590 1600 480V640H0z" fill="#3e6383"/></g>
+  <g stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".5"><path d="M480 700h80M980 730h120M300 790h60M1180 810h90M700 860h140"/></g>
+  <path d="M0 650c120-20 200-10 280 20s120 60 80 100S120 860 0 860z" fill="url(#sh)"/><path d="M1600 640c-160-10-260 10-320 40s-60 80 20 110 200 40 300 40z" fill="url(#sh)"/>
+  ${pine(60,760,1.3,'#3f6f3a','#2f5a2c')}${pine(150,720,1,'#4a7f42','#3a6a34')}${pine(1430,720,1.1,'#4a7f42','#3a6a34')}${pine(1530,750,1.4,'#3f6f3a','#2f5a2c')}
+  ${house(1340,740,.8,'#c9935e','#8c4a2e','#ffe08a')}${birds(860,200,3,'#3d4f60')}`},
+ sunset:{t:'Деревня на закате',svg:()=>`<defs>${grad('s',['#5e4a9a','#e2757a','#ffb27a','#ffe0a0'])}${rgrad('sun',[[0,'#fff6c4',1],[.35,'#ffd27a',.8],[1,'#ff9a6a',0]])}${grad('h1',['#b0607a','#8f4a6a'])}${grad('h2',['#7a3f60','#5e3050'])}${grad('h3',['#4a2846','#3a1f38'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/><circle cx="820" cy="560" r="420" fill="url(#sun)"/><circle cx="820" cy="560" r="110" fill="#fff1b8"/>
+  ${cloud(380,250,1.1,'#ffc9a8','#e6909a',.8)}${cloud(1240,210,1.3,'#ffc9a8','#e6909a',.8)}${cloud(1500,360,.7,'#ffd2b0','#e6909a',.7)}
+  <path d="${HILL1}" fill="url(#h1)"/>
+  <g transform="translate(1250 560)"><path d="M-14 0l6-110h16l6 110z" fill="#5e3050"/><g transform="translate(0 -108)" fill="#7a3f60"><path d="M0 0l-8-90h16z"/><path d="M0 0l90-8v16z"/><path d="M0 0l8 90h-16z"/><path d="M0 0l-90 8v-16z"/></g><circle cx="0" cy="-108" r="8" fill="#3a1f38"/></g>
+  <path d="${HILL2}" fill="url(#h2)"/>
+  ${house(170,712,1.1,'#5e3050','#3a1f38','#ffd27a')}${house(300,722,.85,'#5e3050','#3a1f38','#ffd27a')}${house(1340,716,1,'#5e3050','#3a1f38','#ffd27a')}${house(1470,726,.8,'#5e3050','#3a1f38','#ffd27a')}
+  <path d="${HILL3}" fill="url(#h3)"/>${treeR(70,820,1.1,'#2e1a2c','#2e1a2c','#4a2846')}${treeR(1540,820,1.1,'#2e1a2c','#2e1a2c','#4a2846')}${birds(560,330,5,'#3a1f38')}`},
+ winter:{t:'Зимний замок',svg:()=>`<defs>${grad('s',['#8fb8dc','#cfe3f2','#f2f8fc'])}${grad('m',['#b9cfe2','#dce8f2'])}${grad('h1',['#f4f8fc','#e2ecf5'])}${grad('h2',['#ffffff','#e8f0f7'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/>${cloud(300,150,1,'#fff','#d5e3ef')}${cloud(1250,120,1.2,'#fff','#d5e3ef')}
+  <path d="${MTN_FAR}" fill="url(#m)"/><path d="${MTN_SNOW}" fill="#fff"/>
+  <path d="${HILL1}" fill="url(#h1)"/>${castle(1280,560,.9,'#c8d6e6','#a9bad0','#5b7fb8','#ffe08a','#e2524a')}
+  ${pine(1080,575,.6,'#5d8c7a','#4a7564',1)}${pine(1490,570,.7,'#5d8c7a','#4a7564',1)}
+  <path d="${HILL2}" fill="url(#h2)"/>${pine(90,720,1.5,'#4f7f6e','#3e6a5a',1)}${pine(230,705,1.1,'#5d8c7a','#4a7564',1)}${pine(1400,712,1.15,'#5d8c7a','#4a7564',1)}${pine(1540,725,1.5,'#4f7f6e','#3e6a5a',1)}
+  <path d="${HILL3}" fill="#fff"/><path d="${HILL3}" fill="#dfeaf4" opacity=".5" transform="translate(0 30)"/>
+  ${stars(90,9,900,'#fff')}`},
+ night:{t:'Волшебная ночь',svg:()=>`<defs>${grad('s',['#0f1640','#28276a','#4e3a88','#7a52a0'])}${rgrad('moon',[[0,'#fff6d0',.9],[.2,'#fff6d0',.35],[1,'#fff6d0',0]])}${grad('h1',['#3a2f6e','#2e2560'])}${grad('h2',['#2a2154','#211a46'])}${grad('h3',['#1a1438','#130f2c'])}${grad('au',['#5affc0','#7aa0ff','#c47aff'],1,0)}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/>${stars(140,3,620,'#fff')}
+  <path d="M0 210C300 120 520 260 800 190S1300 110 1600 200V300C1300 210 1100 300 800 290S300 230 0 310z" fill="url(#au)" opacity=".22"/>
+  <circle cx="1230" cy="170" r="240" fill="url(#moon)"/><circle cx="1230" cy="170" r="62" fill="#fff4cc"/><circle cx="1250" cy="160" r="12" fill="#efe0b0"/><circle cx="1212" cy="190" r="8" fill="#efe0b0"/>
+  <path d="${HILL1}" fill="url(#h1)"/>${castle(300,560,.85,'#2a2154','#1e1840','#1e1840','#ffd27a','#c47aff')}
+  <path d="${HILL2}" fill="url(#h2)"/>${pine(1350,705,1.2,'#1a1438','#130f2c')}${pine(1480,715,1.5,'#1a1438','#130f2c')}${pine(1580,700,1.1,'#1a1438','#130f2c')}
+  <path d="${HILL3}" fill="url(#h3)"/>
+  ${[...Array(28)].map((_,i)=>{const R=srnd(i+90);return `<circle cx="${(R()*1600).toFixed(0)}" cy="${(600+R()*280).toFixed(0)}" r="${(1.5+R()*2.5).toFixed(1)}" fill="#fff6a8" opacity="${(.5+R()*.5).toFixed(2)}"/>`;}).join('')}`},
+ harbor:{t:'Морская гавань',svg:()=>`<defs>${grad('s',['#6cbbe8','#bfe4f5','#f6f0d8'])}${grad('w',['#4fa0d0','#2f7fb6'])}${grad('c',['#c9b48a','#a8925f'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/>${cloud(420,150,1.1)}${cloud(1180,110,1.4)}${birds(700,220,3,'#3d4f60')}${birds(980,170,2,'#3d4f60')}
+  <rect y="560" width="1600" height="340" fill="url(#w)"/><path d="M0 560h1600" stroke="#bfe4f5" stroke-width="3"/>
+  <g stroke="#e6f5fc" stroke-width="3" stroke-linecap="round" opacity=".55" fill="none"><path d="M420 640q20-8 40 0t40 0M900 700q20-8 40 0t40 0M600 790q20-8 40 0t40 0 40 0M1100 820q20-8 40 0t40 0"/></g>
+  <g transform="translate(980 600)"><path d="M-120 0h240l-30 40H-90z" fill="#8c4a2e"/><path d="M-90 0h180" stroke="#5a2e1a" stroke-width="4"/><path d="M-6 0v-210M60 0v-160" stroke="#5a3a24" stroke-width="6"/><path d="M-6-200C40-170 50-80-6-20z" fill="#fff8e8"/><path d="M-12-190C-70-150-70-70-12-24z" fill="#f3ead2"/><path d="M60-150c34 24 40 80 0 120z" fill="#fff8e8"/><path d="M-6-210l40 8-40 8z" fill="#e2524a"/></g>
+  <path d="M1600 900V430c-80-10-140 20-180 60s-80 70-120 90-60 60-60 100 20 100 30 220z" fill="url(#c)"/>
+  <g transform="translate(1470 440)"><path d="M-22 0l6-150h32l6 150z" fill="#fff"/><path d="M-20-40h40v20h-40zM-18-100h36v20h-36z" fill="#e2524a"/><rect x="-18" y="-180" width="36" height="30" fill="#ffd84a"/><path d="M-24-180h48l-24-26z" fill="#e2524a"/></g>
+  ${house(1330,600,.75,'#f3ead2','#d6604d','#5a6b7a')}${house(1400,620,.6,'#e8d7b8','#3f7fd0','#5a6b7a')}
+  <path d="M0 900V620c120-20 240 0 300 50s60 140 40 230z" fill="url(#c)"/>${treeR(110,640,.9,'#5f9e34','#4e8a2a','#8cc65a')}`},
+ dragon:{t:'Драконья долина',svg:()=>`<defs>${grad('s',['#3a1426','#8a2f36','#d8643a','#f5a85a'])}${rgrad('lava',[[0,'#ffd27a',.9],[.4,'#ff7a2a',.5],[1,'#ff3d2a',0]])}${grad('m1',['#5a2030','#3e1622'])}${grad('m2',['#3a1420','#2a0e18'])}${grad('h3',['#24101a','#160a10'])}</defs>
+  <rect width="1600" height="900" fill="url(#s)"/>${stars(30,5,260,'#ffd9b0')}
+  <path d="M0 620L200 430 380 520 600 300 760 440 980 280 1160 460 1380 340 1600 460V900H0z" fill="url(#m1)"/>
+  <ellipse cx="980" cy="300" rx="260" ry="140" fill="url(#lava)"/><path d="M960 286l20-6 20 6-14 60h-12z" fill="#ffb24a"/><path d="M972 300c-10 40-30 80-60 140M992 300c14 40 40 90 70 150" stroke="#ff8a3a" stroke-width="6" fill="none" opacity=".8"/>
+  <g fill="#3a1420" opacity=".8">${'<g transform="translate(1250 140) scale(2.2)">'+DRAGON+'</g>'}${'<g transform="translate(1560 260) scale(-1.3 1.3)">'+DRAGON+'</g>'}</g>
+  <path d="M0 720L260 560 440 640 700 520 900 650 1140 540 1380 640 1600 560V900H0z" fill="url(#m2)"/>
+  <g fill="#1e0c14"><path d="M180 760v-90h16v-20h20v20h16v90zM1360 770v-110h14v-24h24v24h14v110z"/><path d="M1300 770v-60h30v60z"/></g>
+  <path d="${HILL3}" fill="url(#h3)"/>
+  ${[...Array(30)].map((_,i)=>{const R=srnd(i+7);return `<circle cx="${(R()*1600).toFixed(0)}" cy="${(380+R()*480).toFixed(0)}" r="${(1.2+R()*2.4).toFixed(1)}" fill="#ffb24a" opacity="${(.4+R()*.6).toFixed(2)}"/>`;}).join('')}`}
+};
+/* classic-style table surfaces (contrast with any board) */
+const CBGS={
+ walnut:{t:'Ореховый стол',dark:true,svg:()=>`<defs><filter id="w" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".0025 .09" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .36  0 0 0 0 .2  0 0 0 0 .11  0 0 0 1.4 -.25"/></filter>${rgrad('v',[[0,'#000',0],[.65,'#000',.15],[1,'#000',.6]],.5,.45,.75)}</defs><rect width="1600" height="900" fill="#6e4426"/><rect width="1600" height="900" filter="url(#w)"/><g stroke="#2a160a" stroke-width="3" opacity=".55">${[150,300,450,600,750].map(y=>`<path d="M0 ${y}H1600"/>`).join('')}</g><g stroke="#c08a5a" stroke-width="1" opacity=".25">${[152,302,452,602,752].map(y=>`<path d="M0 ${y}H1600"/>`).join('')}</g><g stroke="#2a160a" stroke-width="2" opacity=".4">${[[420,0,150],[1180,150,300],[260,300,450],[900,450,600],[1400,600,750],[600,750,900]].map(([x,a,b])=>`<path d="M${x} ${a}V${b}"/>`).join('')}</g><rect width="1600" height="900" fill="url(#v)"/>`},
+ felt:{t:'Зелёное сукно',dark:true,svg:()=>`<defs><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 .1  0 0 0 0 0  0 0 0 .35 0"/></filter>${rgrad('v',[[0,'#2f7a4f',1],[.7,'#1e5c3a',1],[1,'#0f3a24',1]],.5,.45,.8)}</defs><rect width="1600" height="900" fill="url(#v)"/><rect width="1600" height="900" filter="url(#n)"/><rect x="24" y="24" width="1552" height="852" rx="20" fill="none" stroke="#c9a85a" stroke-width="3" opacity=".45"/>`},
+ marble:{t:'Тёмный мрамор',dark:true,svg:()=>`<defs><filter id="m" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".0028 .0055" numOctaves="5" seed="11"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1 0 0 0 0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0 0 0 .9 0 0 0 0 .5 0 0 0"/></feComponentTransfer><feGaussianBlur stdDeviation=".6"/></filter><filter id="c" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".004" numOctaves="3" seed="2"/><feColorMatrix values="0 0 0 0 .3  0 0 0 0 .32  0 0 0 0 .36  0 0 0 .6 0"/></filter>${rgrad('v',[[0,'#000',0],[1,'#000',.55]],.5,.45,.8)}</defs><rect width="1600" height="900" fill="#1f2228"/><rect width="1600" height="900" filter="url(#c)"/><rect width="1600" height="900" filter="url(#m)" opacity=".55"/><rect width="1600" height="900" fill="url(#v)"/>`},
+ navy:{t:'Ночная синева',dark:true,svg:()=>`<defs>${rgrad('v',[[0,'#2c4c8a',1],[.6,'#172a54',1],[1,'#0b1530',1]],.5,.35,.85)}<pattern id="p" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M0 0h40v40H0zM40 40h40v40H40z" fill="#fff" opacity=".035"/></pattern></defs><rect width="1600" height="900" fill="url(#v)"/><rect width="1600" height="900" fill="url(#p)"/>${stars(70,12,900,'#cfe0ff')}`},
+ burgundy:{t:'Бордовый бархат',dark:true,svg:()=>`<defs><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".004 .5" numOctaves="2" seed="6"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 0  0 0 0 0 .05  0 0 0 .5 0"/></filter>${rgrad('v',[[0,'#8a2a3e',1],[.65,'#5e1628',1],[1,'#2e0814',1]],.5,.4,.8)}</defs><rect width="1600" height="900" fill="url(#v)"/><rect width="1600" height="900" filter="url(#n)"/>`},
+ slate:{t:'Графит',dark:true,svg:()=>`<defs><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="4" seed="3"/><feColorMatrix values="0 0 0 0 .55  0 0 0 0 .6  0 0 0 0 .65  0 0 0 .28 0"/></filter>${rgrad('v',[[0,'#454b55',1],[.7,'#30353d',1],[1,'#1c1f25',1]],.5,.4,.85)}</defs><rect width="1600" height="900" fill="url(#v)"/><rect width="1600" height="900" filter="url(#n)"/>`}
 };
 
 let SCN=0;
-function sceneSVG(k){const p='sc'+(++SCN)+'_';const inner=SCENES[k].svg().replace(/id="([^"]+)"/g,'id="'+p+'$1"').replace(/url\(#([^)]+)\)/g,'url(#'+p+'$1)');return `<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${inner}</svg>`;}
+function sceneSet(){return PREF.skin==='fantasy'?SCENES:CBGS;}
+function sceneSVG(k,set){set=set||SCENES;const p='sc'+(++SCN)+'_';const inner=set[k].svg().replace(/id="([^"]+)"/g,'id="'+p+'$1"').replace(/url\(#([^)]+)\)/g,'url(#'+p+'$1)');return `<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${inner}</svg>`;}
 
-function sceneURL(k){return 'url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">'+SCENES[k].svg()+'</svg>')+'")';}
+function sceneURL(k,set){set=set||SCENES;return 'url("data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">'+set[k].svg()+'</svg>')+'")';}
 const SCENE_URL={};
 function applyLook(){
   boardEl.classList.remove(...THEMES.map(t=>'t-'+t[0]));boardEl.classList.add('t-'+PREF.theme);
@@ -2595,9 +2700,13 @@ function applyLook(){
   if(PREF.mode!=='dark')PREF.mode='light';document.body.classList.toggle('mode-dark',PREF.mode==='dark');document.documentElement.setAttribute('data-theme',PREF.mode);
   document.querySelectorAll('#modeSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.mode?'true':'false'));
   if(!SCENES[PREF.scene])PREF.scene='meadow';
-  if(PREF.skin==='fantasy'){const u=SCENE_URL[PREF.scene]||(SCENE_URL[PREF.scene]=sceneURL(PREF.scene));document.body.style.backgroundImage=u;}else document.body.style.backgroundImage='';
-  $('sceneField').hidden=PREF.skin!=='fantasy';
-  document.querySelectorAll('#sceneSw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.scene?'true':'false'));
+  if(!CBGS[PREF.cbg])PREF.cbg='walnut';
+  if(PREF.skin==='fantasy'){const u=SCENE_URL[PREF.scene]||(SCENE_URL[PREF.scene]=sceneURL(PREF.scene));document.body.style.backgroundImage=u;}
+  else{const k='c_'+PREF.cbg,u=SCENE_URL[k]||(SCENE_URL[k]=sceneURL(PREF.cbg,CBGS));document.body.style.backgroundImage=u;}
+  document.body.classList.toggle('cbg',PREF.skin!=='fantasy');
+  const set=sceneSet(),cur=PREF.skin==='fantasy'?PREF.scene:PREF.cbg;
+  if($('sceneSw').dataset.set!==PREF.skin){$('sceneSw').dataset.set=PREF.skin;$('sceneSw').innerHTML=Object.keys(set).map(k=>`<button type="button" data-v="${k}" class="sw" aria-label="Фон: ${set[k].t}" title="${set[k].t}"><span class="sw-s">${sceneSVG(k,set)}</span><span class="sw-n">${set[k].t}</span></button>`).join('');}
+  document.querySelectorAll('#sceneSw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===cur?'true':'false'));
   document.querySelectorAll('#skinSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.skin?'true':'false'));
   document.querySelectorAll('#themeSw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.theme?'true':'false'));
   document.querySelectorAll('#setSw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.pset?'true':'false'));
@@ -2606,8 +2715,8 @@ function applyLook(){
 (function buildLook(){
   $('themeSw').innerHTML=THEMES.map(([v,n])=>`<button type="button" data-v="${v}" class="sw t-${v}" aria-label="Доска: ${n}" title="${n}"><span class="sw-b"><i class="l"></i><i class="d"></i><i class="d"></i><i class="l"></i></span><span class="sw-n">${n}</span></button>`).join('');
   $('setSw').innerHTML=PSETS.map(([v,n])=>`<button type="button" data-v="${v}" class="sw ps-${v}${v==='neon'?' dark':''}" aria-label="Фигуры: ${n}" title="${n}"><span class="sw-p">${pieceSVG(N,true)}${pieceSVG(N,false)}</span><span class="sw-n">${n}</span></button>`).join('');
-  $('sceneSw').innerHTML=Object.keys(SCENES).map(k=>`<button type="button" data-v="${k}" class="sw" aria-label="Фон: ${SCENES[k].t}" title="${SCENES[k].t}"><span class="sw-s">${sceneSVG(k)}</span><span class="sw-n">${SCENES[k].t}</span></button>`).join('');
-  $('sceneSw').onclick=e=>{const b=e.target.closest('button');if(!b)return;PREF.scene=b.dataset.v;savePref();applyLook();};
+
+  $('sceneSw').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(PREF.skin==='fantasy')PREF.scene=b.dataset.v;else PREF.cbg=b.dataset.v;savePref();applyLook();};
   $('themeSw').onclick=e=>{const b=e.target.closest('button');if(!b)return;PREF.theme=b.dataset.v;savePref();applyLook();};
   $('setSw').onclick=e=>{const b=e.target.closest('button');if(!b)return;PREF.pset=b.dataset.v;savePref();applyLook();};
   $('skinSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;PREF.skin=b.dataset.v;
@@ -3594,7 +3703,7 @@ function setLamp(v){
   S.lamp=v;setAuto(v===2);const b=$('hintBtn');b.classList.remove('lamp0','lamp1','lamp2');b.classList.add('lamp'+v);
   const t=['Подсказки выключены. Нажмите — подсказка на один ход','Подсказка на один ход. Нажмите — автоподсказки','Автоподсказки включены. Нажмите — выключить'][v];
   b.title=t;b.setAttribute('aria-label',t);
-  if(v===0){clearHint();S.arrows=S.arrows.filter(a=>a.kind!=='best'&&a.kind!=='alt');renderArrows();}
+  if(v===0){clearHint();tipIdle();S.arrows=S.arrows.filter(a=>a.kind!=='best'&&a.kind!=='alt');renderArrows();}
 }
 setTimeout(()=>setLamp(S.lamp),0);
 $('hintBtn').onclick=()=>{const v=(S.lamp+1)%3;setLamp(v);
@@ -3602,14 +3711,13 @@ $('hintBtn').onclick=()=>{const v=(S.lamp+1)%3;setLamp(v);
 /* tip under the board */
 const TIPIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>';
 let tipT=0;
-function showTip(kind,head,more,cls){const el=$('tip');clearTimeout(tipT);el.className='tip '+kind+(cls?' '+cls:'');el.dataset.kind=kind;
-  el.innerHTML=`<button type="button" class="tip-head" aria-expanded="false">${head}${more?'<i>Подробнее ▾</i>':''}</button>${more?`<div class="tip-more" hidden>${more}</div>`:''}`;el.hidden=false;}
-function hideTip(kind){const el=$('tip');if(!kind||el.dataset.kind===kind){el.hidden=true;el.dataset.kind='';clearTimeout(tipT);}}
-$('tip').addEventListener('click',e=>{
-  const h=e.target.closest('.tip-head');const el=$('tip');
-  if(h){const m=el.querySelector('.tip-more');if(!m)return;const o=m.hidden;m.hidden=!o;el.classList.toggle('open',o);h.setAttribute('aria-expanded',o?'true':'false');h.querySelector('i').textContent=o?'Скрыть ▴':'Подробнее ▾';clearTimeout(tipT);return;}
-  const b=e.target.closest('.alt');if(b)hintAltClick(b);
-});
+function showTip(kind,title,body,cls){const el=$('tip');clearTimeout(tipT);el.className='tip side '+kind+(cls?' '+cls:'');el.dataset.kind=kind;
+  el.innerHTML=`<div class="tip-title"><span class="tip-ic">${TIPIC}</span>${title}</div><div class="tip-body">${body}</div>`;}
+function tipIdle(){const el=$('tip');el.className='tip side idle';el.dataset.kind='';
+  const t=S.lamp===0?'Подсказки выключены. Нажмите на лампочку под доской: один раз — подсказка на ближайший ход, ещё раз — автоподсказки.':isUserTurn()&&!S.over?'Считаю лучший ход…':'Подсказка появится, когда будет ваш ход.';
+  el.innerHTML=`<div class="tip-title"><span class="tip-ic">${TIPIC}</span>Подсказка</div><p class="empty">${t}</p>${S.coach?'':''}`;}
+function hideTip(kind){const el=$('tip');if(!kind||el.dataset.kind===kind||!el.dataset.kind)tipIdle();}
+$('tip').addEventListener('click',e=>{const b=e.target.closest('.alt');if(b)hintAltClick(b);});
 /* strength button */
 function lvlIcon(){$('lvlBtn').innerHTML=pieceSVG(LVLP[S.level-1],S.userColor!=='b');$('lvlBtn').title='Сила компьютера: '+LVLN[S.level-1];$('lvlBtn').setAttribute('aria-label',$('lvlBtn').title);}
 function lvlOpts(cur){return LVLN.map((n,i)=>`<button type="button" class="lvl-opt" role="menuitemradio" aria-checked="${i+1===cur}" data-lv="${i+1}">${pieceSVG(LVLP[i],true)}<span>${n}</span></button>`).join('');}
@@ -3623,9 +3731,9 @@ lvlIcon();
 S.sheetOpen=false;try{S.sheetOpen=localStorage.getItem('chess-sheet')==='1';}catch(e){}
 $('sheetBtn').onclick=()=>{S.sheetOpen=!S.sheetOpen;try{localStorage.setItem('chess-sheet',S.sheetOpen?'1':'0');}catch(e){}render();};
 function updateLayout(){const other=S.setup||S.book||S.review||S.puz||S.learn;
-  document.body.classList.toggle('solo',!other&&!S.sheetOpen);$('sheetBtn').setAttribute('aria-pressed',S.sheetOpen?'true':'false');
+  document.body.classList.toggle('solo',false);document.body.classList.toggle('sheet-on',!!S.sheetOpen);if(!other&&!$('tip').dataset.kind)tipIdle();$('sheetBtn').setAttribute('aria-pressed',S.sheetOpen?'true':'false');
   const play=!other;$('lvlWrap').hidden=S.userColor==='both';$('sheetBtn').disabled=!play;$('lvlBtn').disabled=!play;
-  if(other)hideTip();}
+}
 /* coach toggle in menu */
 function setCoach(on){S.coach=on;$('coach').checked=on;$('coachLbl').textContent=on?'вкл':'выкл';$('coachBtn').setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('chess-coach',on?'1':'0');}catch(e){}if(!on)hideTip('coach');}
 $('coachBtn').onclick=()=>{setCoach(!S.coach);if(S.coach&&!S.busy)startPrep();};
