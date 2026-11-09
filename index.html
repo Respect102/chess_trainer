@@ -945,6 +945,47 @@ body.skin-fantasy .bk-nav.under,body:not(.skin-fantasy) .bk-nav.under{position:s
   .hstrip.idle{border-color:var(--line,#c9a46a);opacity:.85}
   .hstrip.idle .hs-ic{background:var(--soft,#e8d9b5);color:var(--muted,#7a5d3c)}
 }
+
+.mob{display:none!important}
+.ln-task{font-weight:800;font-size:.86rem;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ln-task.bad,.pz-goal.bad{color:#c0392b}.ln-task.good,.pz-goal.good{color:#3f8f3a}
+.pz-goal{overflow:hidden;text-overflow:ellipsis}
+.msheet{position:fixed;inset:0;z-index:58;background:rgba(20,14,6,.35);display:flex;align-items:flex-end}
+.msheet[hidden]{display:none}
+.msheet-in{width:100%;max-height:80vh;overflow:auto;background:var(--panel);border-radius:18px 18px 0 0;padding:12px 14px max(18px,env(safe-area-inset-bottom,0px));box-shadow:0 -8px 24px -10px rgba(0,0,0,.45)}
+body.skin-fantasy .msheet-in{background:radial-gradient(120% 90% at 50% 0%,#fff8e3,#f8ebc8 60%,#efdcae);border:2px solid var(--wood);border-bottom:0}
+body.skin-fantasy.mode-dark .msheet-in{background:radial-gradient(120% 90% at 50% 0%,#40354a 0%,#2f2838 60%,#262030 100%);border-color:#a8700f}
+.mc-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mc-h b{font-size:1.1rem}
+body.skin-fantasy .mc-h b{font-family:"Kurale",Georgia,serif;font-weight:400;color:var(--wood)}
+body.skin-fantasy.mode-dark .mc-h b{color:#f0c76a}
+@media (max-width:600px){
+  body.m-learn #learnPanel,body.m-puz #puzPanel,body.m-learn .actions,body.m-puz .actions{display:none!important}
+  body.m-learn #lnRow,body.m-puz #pzRow,body.m-puz #pzSegM{display:flex!important}
+  body.m-learn #lnCardM,body.m-puz #pzCardM{display:flex!important}
+  .mrow{align-items:center;gap:6px}
+  .mrow .btn.icon{width:42px;height:42px;min-width:42px;padding:0}
+  .mrow .btn:disabled{opacity:.4;filter:grayscale(.6)}
+  .mmid{flex:1;min-width:0;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:6px;font:800 .85rem var(--font-ui);color:var(--ink);background:var(--panel);border:2px solid var(--line);padding:0 6px;white-space:nowrap;overflow:hidden}
+  body.skin-fantasy .mmid{background:rgba(251,241,214,.97);border-color:var(--wood)}
+  body.skin-fantasy.mode-dark .mmid{background:rgba(44,36,52,.96)}
+  button.mmid{cursor:pointer}
+  .mmid i{width:10px;height:10px;border-radius:50%;background:rgba(140,90,46,.22);border:1.5px solid rgba(140,90,46,.5);flex:none}
+  .mmid i.on{background:#6faa3e;border-color:#3f7a22}.mmid i.cur{box-shadow:0 0 0 2px #e39a1f}
+  .mmid span{margin-left:4px}
+  .mcard{flex-direction:column;gap:4px;border-radius:14px;background:var(--panel);border:1px solid var(--line);padding:10px 12px;font-size:.88rem;line-height:1.4}
+  body.skin-fantasy .mcard{background:rgba(251,241,214,.97);border:2px solid var(--wood);box-shadow:0 3px 0 rgba(90,52,24,.3)}
+  body.skin-fantasy.mode-dark .mcard{background:rgba(44,36,52,.96);border-color:#a8700f}
+  .mcard p{margin:0}
+  .mc-link{border:0;background:none;padding:0;font:800 .76rem var(--font-ui);color:var(--accent-text);cursor:pointer;text-align:right}
+  .mc-prog{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;color:var(--muted)}
+  .mc-prog b{color:var(--ink)}
+  .mseg{width:100%}
+  .mseg button{flex:1;padding:7px 0;font-size:.82rem}
+  body.m-learn #capTop,body.m-puz #capTop{min-height:44px;height:44px}
+  body.m-learn #capBot,body.m-puz #capBot{display:none}
+  .pz-grid#pzGridM{grid-template-columns:repeat(auto-fill,minmax(40px,1fr))!important;gap:6px!important;margin-top:10px}
+}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -984,6 +1025,7 @@ body.skin-fantasy .bk-nav.under,body:not(.skin-fantasy) .bk-nav.under{position:s
       <button class="btn icon exit-btn" id="exitBtn" type="button" aria-label="Выйти на главный экран" title="На главный экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M15 16l4-4-4-4"/><path d="M19 12H9"/></svg></button>
       <div class="topright"><div class="status" id="status" aria-live="polite"></div><div class="score-pill eq" id="scorePill" title="Счёт по взятым фигурам: пешка 1, конь и слон 3, ладья 5, ферзь 9"><span class="sp-v" id="spV">0</span><span class="sp-l" id="spL">равно</span></div></div>
     </div>
+    <div class="seg mseg mob" id="pzSegM" role="group" aria-label="Сложность"><button type="button" data-l="easy">Мат в 1</button><button type="button" data-l="mid">Мат в 2</button><button type="button" data-l="hard">Мат в 3</button></div>
     <div class="capbar" id="capTop"></div>
     <div class="board-row">
       <div class="evalbar" id="evalbar" title="Оценка позиции"><div class="fill" id="evalfill"></div><div class="num" id="evalnum">0.0</div></div>
@@ -1000,6 +1042,10 @@ body.skin-fantasy .bk-nav.under,body:not(.skin-fantasy) .bk-nav.under{position:s
         <button class="btn" id="bkNext" type="button" aria-label="Следующий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         <button class="btn" id="bkLast" type="button" aria-label="К концу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M17 5v14"/></svg></button>
       </div>
+    <div class="mrow mob" id="lnRow"><button type="button" class="btn icon" id="lnPrevM" aria-label="Предыдущее задание"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><div class="mmid" id="lnDotsM"></div><button type="button" class="btn icon" id="lnNextM" aria-label="Следующее задание"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><button type="button" class="btn icon primary" id="lnHintM" aria-label="Подсказка"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></button><button type="button" class="btn icon" id="lnRetryM" aria-label="Заново"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button></div>
+    <div class="mcard mob" id="lnCardM"><div class="mc-h"><b id="lnTitleM"></b><button type="button" class="mc-link" id="lnAllM"></button></div><p id="lnRuleM"></p></div>
+    <div class="mrow mob" id="pzRow"><button type="button" class="btn icon" id="pzPrevM" aria-label="Предыдущая задача"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="mmid" id="pzListM" aria-haspopup="dialog"></button><button type="button" class="btn icon" id="pzNextM" aria-label="Следующая задача"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><button type="button" class="btn icon primary" id="pzHintM" aria-label="Подсказка"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></button><button type="button" class="btn icon" id="pzRetryM" aria-label="Заново"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button></div>
+    <div class="mcard mob" id="pzCardM"><div class="mc-prog"><span id="pzStatM"></span><span id="pzAllM"></span></div><div class="ln-bar"><i id="pzBarM"></i></div></div>
     <button type="button" class="hstrip" id="hstrip" hidden><span class="hs-ic"></span><span class="hs-t"></span><span class="hs-go" aria-hidden="true">›</span></button>
     <div class="actions">
       <button class="btn primary icon lamp0" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg><span class="lamp-a">А</span></button>
@@ -1215,6 +1261,7 @@ body.skin-fantasy .bk-nav.under,body:not(.skin-fantasy) .bk-nav.under{position:s
     <div class="acts"><button class="btn" id="ngCancel" type="button">Отмена</button><button class="btn primary" id="ngGo" type="button">Играть</button></div>
   </div>
 </div>
+<div class="msheet" id="pzSheet" hidden><div class="msheet-in" role="dialog" aria-label="Все задачи"><div class="mc-h"><b>Все задачи</b><button type="button" class="btn icon" id="pzSheetX" aria-label="Закрыть">✕</button></div><div class="pz-grid" id="pzGridM"></div></div></div>
 <div class="fx" id="fx" hidden><canvas id="fxcv"></canvas><div class="fx-card" id="fxCard" role="status"></div></div>
 <div class="endov" id="endov" hidden><canvas id="endcv"></canvas><div class="endcard" id="endcard" role="dialog" aria-modal="true" aria-label="Итог партии"></div></div>
 <script>
@@ -1847,7 +1894,9 @@ function lostPieces(st,cu){const L=[0,0,0,0,0,0,0];let extra=0;for(const t of [2
 function renderCaptured(){
   const top=$('capTop'),bot=$('capBot');
   if(S.puz&&PZ.pos){const w=PZ.side0===WHITE,left=Math.max(1,PZ.n-PZ.moves);top.style.visibility='';bot.style.visibility='hidden';$('scorePill').style.visibility='hidden';
-    const h=`<span class="cap-n pz-who"><i class="cap-dot ${w?'w':'b'}"></i>Ходят ${w?'белые':'чёрные'}</span><span class="pz-goal">${PZ.state==='done'?'Мат поставлен ✓':'Поставьте мат в '+pzMoves(left)}</span>`;if(top._h!==h){top._h=h;top.innerHTML=h;}return;}
+    const h=`<span class="cap-n pz-who"><i class="cap-dot ${w?'w':'b'}"></i>Ходят ${w?'белые':'чёрные'}</span><span class="pz-goal ${PZ.fbCls||''}">${PZ.fb||(PZ.state==='done'?'Мат поставлен ✓':'Поставьте мат в '+pzMoves(left))}</span>`;if(top._h!==h){top._h=h;top.innerHTML=h;}return;}
+  if(S.learn&&LN.view==='lesson'){top.style.visibility='';bot.style.visibility='hidden';$('scorePill').style.visibility='hidden';
+    const h=`<span class="ln-task ${LN.fbCls||''}">${LN.fb||lnPrompt()}</span>`;if(top._h!==h){top._h=h;top.innerHTML=h;}return;}
   if(S.setup||S.puz||S.learn){top.style.visibility=bot.style.visibility='hidden';$('scorePill').style.visibility='hidden';return;}
   $('scorePill').style.visibility='';
   top.style.visibility=bot.style.visibility='';
@@ -1859,7 +1908,7 @@ function renderCaptured(){
     const adv=c==='w'?diff:-diff;
     return `<span class="cap-n"><i class="cap-dot ${c}"></i>${name(c)}</span><span class="cap-p">${ic||'<span class="cap-none">пока никого не съели</span>'}</span>${adv>0?`<span class="cap-adv">+${adv}</span>`:''}`;};
   const tc=S.flipped?'w':'b',bc=S.flipped?'b':'w';
-  const th=strip(tc),bh=strip(bc);sayEls();const tm=top.querySelector('.cap-main'),bm=bot.querySelector('.cap-main');
+  const th=strip(tc),bh=strip(bc);top._h=bot._h=null;sayEls();const tm=top.querySelector('.cap-main'),bm=bot.querySelector('.cap-main');
   if(tm._h!==th){tm.innerHTML=th;tm._h=th;}if(bm._h!==bh){bm.innerHTML=bh;bm._h=bh;}
 }
 function renderSheet(){
@@ -3422,14 +3471,16 @@ function pzSolve(p,n){
 }
 function pzAllRepliesLose(p,k){const rep=p.legal();if(!rep.length)return p.inCheck();for(const r of rep){p.make(r);const s=pzSolve(p,k);p.unmake();if(!s)return false;}return true;}
 function pzBestDefense(p,k){let best=null,bd=-1;for(const r of p.legal()){p.make(r);let d=k+1;for(let j=1;j<=k;j++)if(pzSolve(p,j)){d=j;break;}p.unmake();const sc=d*10+(r.cap?1:0)+Math.random();if(sc>bd){bd=sc;best=r;}}return best;}
-function pzMsg(h){$('pzMsg').innerHTML=h;}
+function pzMsg(h){$('pzMsg').innerHTML=h;PZ.fb=/pz-bad/.test(h)?'Не мат — ещё раз':/pz-good/.test(h)?fbOf(h).replace(/Ошибок:.*$/,'').trim():'';PZ.fbCls=/pz-bad/.test(h)?'bad':/pz-good/.test(h)?'good':'';if(S.puz)render();}
 function pzRenderList(){
   const st=pzStore();let all=0,done=0;
   for(const [l] of PZL)PUZ[l].forEach((_,i)=>{all++;if(st[l+'-'+i])done++;});
   const list=PUZ[PZ.lvl],lv=list.filter((_,i)=>st[PZ.lvl+'-'+i]).length;
   $('pzStat').innerHTML=`Решено в этом уровне: <b>${lv} из ${list.length}</b> · всего: <b>${done} из ${all}</b>`;
-  $('pzLvl').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===PZ.lvl?'true':'false'));
+  $('pzLvl').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===PZ.lvl?'true':'false'));$('pzSegM').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===PZ.lvl?'true':'false'));
+  $('pzListM').textContent=`№ ${PZ.idx+1} из ${list.length} ▾`;$('pzStatM').innerHTML=`Решено <b>${lv} из ${list.length}</b>`;$('pzAllM').textContent=`всего ${done} из ${all}`;$('pzBarM').style.width=(lv/list.length*100)+'%';$('pzPrevM').disabled=PZ.idx===0;$('pzNextM').disabled=PZ.idx>=list.length-1;
   $('pzGrid').innerHTML=list.map((pz,i)=>{const v=st[PZ.lvl+'-'+i]||0;return `<button type="button" class="pz-t${v?' solved':''}${v===2?' clean':''}${i===PZ.idx?' cur':''}" data-pz="${i}" aria-label="Задача ${i+1}${v?', решена':''}"><span>${i+1}</span>${v?'<i>✓</i>':''}</button>`;}).join('');
+  $('pzGridM').innerHTML=$('pzGrid').innerHTML;
 }
 function pzLoad(lvl,idx){
   PZ.lvl=lvl;PZ.idx=idx;const pz=PUZ[lvl][idx];
@@ -3472,7 +3523,7 @@ function pzTry(m){
   },30);
 }
 function pzWrong(m,need){
-  PZ.mistakes++;PZ.busy=false;snd('capture');render();
+  PZ.mistakes++;PZ.busy=false;snd('capture');fxPop(false);render();
   pzMsg(`<p class="pz-bad"><b>Этот ход не ставит мат${need>1?' за '+pzMoves(need):''}.</b> Попробуйте ещё раз.</p><p class="note">Ошибок: ${PZ.mistakes}. Можно взять подсказку.</p>`);
 }
 function pzHint(){
@@ -3628,8 +3679,11 @@ function lnPrompt(){
   return '';
 }
 function lnEnemy(){let n=0;const p=LN.pos;for(let s=0;s<128;s++)if(!(s&0x88)&&p.b[s]&&!(p.b[s]&8))n++;return n;}
-function lnDots(){const l=LESSONS[LN.li];$('lnDots').innerHTML=l.ex.map((_,i)=>`<i class="${i<LN.ei||(i===LN.ei&&LN.state==='done')?'on':''}${i===LN.ei?' cur':''}"></i>`).join('')+`<span>Задание ${LN.ei+1} из ${l.ex.length}</span>`;}
-function lnUpdMsg(extra){lnMsg(`${extra||''}<p>${lnPrompt()}</p>`);}
+function lnDots(){const l=LESSONS[LN.li];const dm=l.ex.map((_,i)=>`<i class="${i<LN.ei||(i===LN.ei&&LN.state==='done')?'on':''}${i===LN.ei?' cur':''}"></i>`).join('');$('lnDotsM').innerHTML=dm+`<span>${LN.ei+1} из ${l.ex.length}</span>`;
+  $('lnPrevM').disabled=LN.ei===0;$('lnNextM').disabled=!(LN.state==='done'||LN.ei<(LN.maxEi||0));$('lnHintM').disabled=LN.state!=='play';
+  $('lnDots').innerHTML=l.ex.map((_,i)=>`<i class="${i<LN.ei||(i===LN.ei&&LN.state==='done')?'on':''}${i===LN.ei?' cur':''}"></i>`).join('')+`<span>Задание ${LN.ei+1} из ${l.ex.length}</span>`;}
+function fbOf(h){const t=(h||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();return t;}
+function lnUpdMsg(extra){LN.fb=extra?fbOf(extra):'';LN.fbCls=extra&&/pz-bad/.test(extra)?'bad':extra&&/pz-good/.test(extra)?'good':'';lnMsg(`${extra||''}<p>${lnPrompt()}</p>`);if(S.learn)render();}
 function lnLoadEx(li,ei){
   LN.tok++;LN.li=li;LN.ei=ei;const l=LESSONS[li],ex=l.ex[ei];
   LN.pos=new L.Pos().load(ex.fen);LN.geo=!lnHasKings(LN.pos);LN.stars=(ex.stars||[]).map(lnSq);LN.moves=0;LN.mistakes=0;LN.hints=0;LN.ti=0;LN.state='play';LN.busy=false;LN.mark=null;LN.last=null;
@@ -3640,8 +3694,10 @@ function lnLoadEx(li,ei){
   $('lnText').innerHTML=ei===0?`<p>${l.text}</p>`:'';$('lnText').hidden=ei!==0;
   $('lnNext').disabled=true;$('lnNext').textContent=ei<l.ex.length-1?'Дальше ›':li<LESSONS.length-1?`Урок ${li+2} ›`:'Готово';
   $('lnHint').disabled=false;
+  if(LN.mLi!==li){LN.mLi=li;LN.maxEi=0;}$('lnTitleM').textContent=l.t;$('lnAllM').textContent=`урок ${li+1} из ${LESSONS.length} · Все уроки ▾`;$('lnRuleM').textContent=l.text;
   lnDots();lnUpdMsg();render();
 }
+function lnMob(){}
 function lnOpenLesson(li){lnShow('lesson');lnLoadEx(li,0);}
 function lnFlash(s,ok){LN.mark={s,ok};render();clearTimeout(LN.mt);LN.mt=setTimeout(()=>{LN.mark=null;if(S.learn)render();},650);}
 function lnTargetsAt(s){const p=LN.pos;return LN.geo?lnGeo(p,s):p.legal().filter(m=>m.f===s);}
@@ -3677,7 +3733,7 @@ function lnTry(m){
   if(mate)snd('mate');else lnMoveSnd(m,chk);render();lnDone(r.msg);
 }
 function lnDone(msg){
-  const l=LESSONS[LN.li],last=LN.ei>=l.ex.length-1;LN.state='done';S.selected=-1;S.targets=[];
+  const l=LESSONS[LN.li],last=LN.ei>=l.ex.length-1;LN.state='done';S.selected=-1;S.targets=[];LN.fb=fbOf(msg)+(last?'':' Нажмите ›');LN.fbCls='good';LN.maxEi=Math.max(LN.maxEi||0,LN.ei+1);
   $('lnNext').disabled=false;$('lnHint').disabled=true;
   if(last){const first=!lnStore()[l.id];lnSave(l.id);const n=LESSONS.filter(x=>lnStore()[x.id]).length;setTimeout(()=>fxLesson(l.id==='game'?'Победа!':'Урок пройден!',l.id==='game'?'Вы обыграли тренера ✓':`«${l.t}» · пройдено ${n} из ${LESSONS.length}`),l.id==='game'?700:350);
     lnMsg(`<div class="bk-cm-move pz-ok">Урок «${l.t}» пройден ✓</div><p>${msg}</p>${first?'<p class="note">Урок отмечен в списке.</p>':''}`);}
@@ -3717,7 +3773,7 @@ function lnGameMove(m){
     lnUpdMsg(c2?'<p class="pz-bad"><b>Вам шах!</b> Защитите короля.</p>':`<p class="note">Тренер сыграл ${L.uci(r).slice(0,2)}–${L.uci(r).slice(2,4)}.</p>`);
   },650);
 }
-function lnGameOver(t){LN.state='over';S.selected=-1;S.targets=[];$('lnHint').disabled=true;lnMsg(`<div class="bk-cm-move">Партия окончена</div><p>${t}</p>`);render();}
+function lnGameOver(t){LN.state='over';LN.fb=t;LN.fbCls='bad';S.selected=-1;S.targets=[];$('lnHint').disabled=true;lnMsg(`<div class="bk-cm-move">Партия окончена</div><p>${t}</p>`);render();}
 function lnStarHint(){const p=LN.pos;let from=-1;for(let s=0;s<128;s++)if(!(s&0x88)&&p.b[s])from=s;
   const st=LN.stars.slice(),full=(1<<st.length)-1,pc=p.b[from],seen=new Set([from*1024]);let q=[[from,0,pc,null]];
   while(q.length){const nq=[];for(const [s,mask,cur,first] of q){if(mask===full)return first;const tp=new L.Pos();tp.b[s]=cur;
@@ -3912,6 +3968,16 @@ function fxFinale(kind,stats){
   fxCard(`<div class="fx-rays big"></div>${kind==='grand'||kind==='hard'?'<div class="fx-glow"></div>':''}<div class="fin-tag">Блок закрыт</div>${art}<h3>${title}</h3><p>${sub}</p>${st}<button type="button" class="fin-btn">Ура!</button>`,cls,dur+800);
   fxSnd(kind==='easy'?FANFARE.A:kind==='mid'?FANFARE.C:FANFARE.B);
 }
+
+$('lnPrevM').onclick=()=>{if(LN.ei>0)lnLoadEx(LN.li,LN.ei-1);};
+$('lnNextM').onclick=()=>{if(LN.state==='done')lnNextBtn();else if(LN.ei<(LN.maxEi||0))lnLoadEx(LN.li,LN.ei+1);};
+$('lnHintM').onclick=()=>lnHint();$('lnRetryM').onclick=()=>lnLoadEx(LN.li,LN.ei);$('lnAllM').onclick=()=>lnBack();
+$('pzPrevM').onclick=()=>{if(PZ.idx>0)pzLoad(PZ.lvl,PZ.idx-1);};
+$('pzNextM').onclick=()=>{if(PZ.idx<PUZ[PZ.lvl].length-1)pzLoad(PZ.lvl,PZ.idx+1);};
+$('pzHintM').onclick=()=>pzHint();$('pzRetryM').onclick=()=>pzLoad(PZ.lvl,PZ.idx);
+$('pzListM').onclick=()=>{$('pzSheet').hidden=false;};$('pzSheetX').onclick=()=>{$('pzSheet').hidden=true;};
+$('pzSheet').addEventListener('click',e=>{if(e.target===$('pzSheet')){$('pzSheet').hidden=true;return;}const b=e.target.closest('[data-pz]');if(b){$('pzSheet').hidden=true;pzLoad(PZ.lvl,+b.dataset.pz);}});
+$('pzSegM').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const st=pzStore(),l=b.dataset.l;let idx=PUZ[l].findIndex((_,i)=>!st[l+'-'+i]);if(idx<0)idx=0;pzLoad(l,idx);});
 $('lnRetry').onclick=()=>lnLoadEx(LN.li,LN.ei);$('lnHint').onclick=lnHint;$('lnNext').onclick=lnNextBtn;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.learn&&$('endov').hidden&&$('setov').hidden){if(LN.view==='lesson')lnBack();else closeLearn();}});
 
@@ -3954,6 +4020,7 @@ S.sheetOpen=false;try{S.sheetOpen=localStorage.getItem('chess-sheet')==='1';}cat
 $('sheetBtn').onclick=()=>{S.sheetOpen=!S.sheetOpen;try{localStorage.setItem('chess-sheet',S.sheetOpen?'1':'0');}catch(e){}render();};
 function updateLayout(){const other=S.setup||S.book||S.review||S.puz||S.learn;
   document.body.classList.toggle('solo',false);document.body.classList.toggle('sheet-on',!!S.sheetOpen);if(!other&&!$('tip').dataset.kind)tipIdle();$('sheetBtn').setAttribute('aria-pressed',S.sheetOpen?'true':'false');
+  document.body.classList.toggle('m-learn',!!(S.learn&&LN.view==='lesson'));document.body.classList.toggle('m-puz',!!S.puz);if(!S.puz)$('pzSheet').hidden=true;
   $('bkNav').hidden=!S.book;$('hstrip').classList.toggle('off',!!other);
   const play=!other;$('lvlWrap').hidden=!play||S.userColor==='both';$('sheetBtn').hidden=!play;$('hintBtn').hidden=!play;$('undoBtn').hidden=!play;
 }
