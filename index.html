@@ -868,6 +868,46 @@ body.skin-fantasy .tour-card h3{font-family:"Kurale",Georgia,serif;font-weight:4
 body.cbg .book,body.cbg .setup,body.cbg #playPanel .sheet-wrap,body.cbg .tip.side{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
 
 .tip.side>*{flex-shrink:0}
+
+/* move chips: piece picture + words */
+.mchip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 6px;border-radius:12px;background:rgba(255,255,255,.6);border:1.5px solid var(--line);vertical-align:middle;line-height:1.15;max-width:100%}
+body.mode-dark .mchip{background:rgba(255,255,255,.07)}
+.mchip .pc{width:34px;height:34px;flex:none}
+.mchip .mc-t{display:flex;flex-direction:column;min-width:0}
+.mchip b{font-size:1rem}
+.mchip .mc-path{font-family:var(--font-mono);font-weight:700;font-size:.92rem;color:var(--muted)}
+.mchip .mc-path i{font-style:normal;margin:0 4px;color:var(--accent-text)}
+.mchip .mc-x{font-size:.82rem;font-weight:700;color:var(--muted)}
+.mchip.sm{padding:2px 10px 2px 4px;gap:6px}.mchip.sm .pc{width:26px;height:26px}.mchip.sm b{font-size:.9rem}.mchip.sm .mc-path{font-size:.82rem}
+.big-chip .mchip{padding:6px 16px 6px 8px;border-width:2px;border-color:#6faa3e;background:rgba(127,206,90,.16)}
+.big-chip .mchip .pc{width:52px;height:52px}.big-chip .mchip b{font-size:1.3rem}.big-chip .mchip .mc-path{font-size:1.1rem}
+.chip-row{margin:2px 0 4px}
+.chip-row.good .mchip{border-color:#6faa3e;background:rgba(127,206,90,.16)}
+.chip-row.bad .mchip{border-color:#d0402a;background:rgba(226,82,74,.12)}
+.pv-steps{list-style:none;margin:4px 0 8px;padding:0;display:flex;flex-direction:column;gap:4px;counter-reset:pv}
+.pv-steps li{display:flex;align-items:center;gap:8px;counter-increment:pv}
+.pv-steps li::before{content:counter(pv);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font:800 .72rem/1 var(--font-ui);color:var(--muted);flex:none}
+.pv-who{width:5.2em;font-size:.78rem;font-weight:800;color:var(--muted);flex:none}
+.pv-play{display:inline-flex;align-items:center;gap:6px}
+.pv-play svg{width:14px;height:14px}
+body.previewing .pv-play{background:linear-gradient(180deg,#f2735e,#c2452f)!important;color:#fff!important}
+.tip .alt{grid-template-columns:auto minmax(0,1fr);align-items:center}
+.pv .lbl{display:block;margin-bottom:2px}
+.rv-comment .mchip,.bk-comment .mchip{margin:2px 0}
+
+html{scrollbar-gutter:stable}
+.bk-nav{position:sticky;top:8px;z-index:6}
+body.skin-fantasy .bk-nav{padding:6px;margin:0 -6px;border-radius:14px;background:rgba(248,235,200,.92);box-shadow:0 4px 10px -6px rgba(60,30,10,.4)}
+body.skin-fantasy.mode-dark .bk-nav{background:rgba(44,36,52,.94)}
+body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;background:var(--panel)}
+.pz-who{font-weight:800}
+.pz-goal{margin-left:auto;font-weight:800;color:var(--accent-text);white-space:nowrap}
+@media (min-width:900px){.app{padding-block:12px 16px}.board-row{max-width:min(680px,calc(100vh - 262px))!important;min-width:min(100%,360px)!important}.actions,.capbar{max-width:min(680px,calc(100vh - 262px))!important}}
+
+.bk-cm-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bk-cm-n{font-weight:800;font-size:.85rem;color:var(--muted)}
+.bk-cm-sfx{font-weight:800;color:var(--accent-text)}
+.coach-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -994,8 +1034,6 @@ body.cbg .book,body.cbg .setup,body.cbg #playPanel .sheet-wrap,body.cbg .tip.sid
       <div class="bk-top"><h2 class="bk-title">Шахматный справочник</h2><button class="btn small" id="bkClose2" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>Закрыть</button></div>
       <div class="bk-cat" id="bkCat"></div>
       <div class="bk-head"><h3 id="bkName"></h3><span class="bk-meta" id="bkMeta"></span></div>
-      <p class="bk-sum" id="bkSum"></p>
-      <div class="bk-comment" id="bkComment" aria-live="polite"></div>
       <div class="bk-nav">
         <button class="btn" id="bkFirst" type="button" aria-label="К началу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6l-6 6 6 6M7 5v14"/></svg></button>
         <button class="btn" id="bkPrev" type="button" aria-label="Предыдущий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -1003,6 +1041,8 @@ body.cbg .book,body.cbg .setup,body.cbg #playPanel .sheet-wrap,body.cbg .tip.sid
         <button class="btn" id="bkNext" type="button" aria-label="Следующий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         <button class="btn" id="bkLast" type="button" aria-label="К концу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M17 5v14"/></svg></button>
       </div>
+      <div class="bk-comment" id="bkComment" aria-live="polite"></div>
+      <p class="bk-sum" id="bkSum"></p>
       <div class="bk-train"><button class="btn primary" id="bkQuiz" type="button">Проверь себя: сыграть по памяти</button><div class="bk-qmsg" id="bkQuizMsg" aria-live="polite"></div></div>
       <div class="bk-moves" id="bkMoves"></div>
       <div id="bkIdeas"></div>
@@ -1044,10 +1084,10 @@ body.cbg .book,body.cbg .setup,body.cbg #playPanel .sheet-wrap,body.cbg .tip.sid
     <div class="book" id="puzPanel" hidden>
       <div class="bk-top"><h2 class="bk-title">Задачи на мат</h2><button class="btn small" id="pzClose" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>Закрыть</button></div>
       <div class="seg pz-lvl" id="pzLvl" role="group" aria-label="Сложность"><button type="button" data-l="easy">Лёгкие<small>мат в 1</small></button><button type="button" data-l="mid">Средние<small>мат в 2</small></button><button type="button" data-l="hard">Сложные<small>мат в 3</small></button></div>
-      <div class="pz-stat" id="pzStat"></div>
-      <div class="pz-grid" id="pzGrid"></div>
       <div class="bk-comment" id="pzMsg" aria-live="polite"></div>
       <div class="pz-acts"><button class="btn" id="pzHint" type="button">Подсказка</button><button class="btn" id="pzRetry" type="button">Заново</button><button class="btn primary" id="pzNext" type="button">Следующая</button></div>
+      <div class="pz-stat" id="pzStat"></div>
+      <div class="pz-grid" id="pzGrid"></div>
     </div>
     <div id="playPanel" style="display:contents">
     <div class="settings">
@@ -1605,6 +1645,40 @@ function isPassed(p,s){
 function pieceAt(p,s){return `${NAMES[p.b[s]&7][1]} на ${L.sqName(s)}`;}
 function listAcc(p,sqs){const a=sqs.map(s=>pieceAt(p,s));if(a.length<2)return a.join('');return a.slice(0,-1).join(', ')+' и '+a[a.length-1];}
 
+/* --- moves as pictures + words instead of notation --- */
+const PNAME={1:'Пешка',2:'Конь',3:'Слон',4:'Ладья',5:'Ферзь',6:'Король'};
+function sqN(s){return 'abcdefgh'[s&7]+(8-(s>>4));}
+function mvWords(p,m){const t=m.pc&7;
+  if(m.fl&4)return m.t>m.f?'Короткая рокировка':'Длинная рокировка';
+  let w=`${PNAME[t]} ${sqN(m.f)} → ${sqN(m.t)}`;
+  if(m.cap)w+=`, берёт ${NAMES[m.cap&7][1]}`;
+  if(m.pr)w+=`, становится ${['','','конём','слоном','ладьёй','ферзём'][m.pr]}`;
+  return w;}
+function mvChip(p,m,cls){const t=m.pc&7,wh=!!(m.pc&WHITE);
+  const main=(m.fl&4)?(m.t>m.f?'Короткая рокировка':'Длинная рокировка'):`${PNAME[t]}`;
+  const path=(m.fl&4)?'':`<span class="mc-path">${sqN(m.f)}<i>→</i>${sqN(m.t)}</span>`;
+  const extra=m.cap?`<span class="mc-x">берёт ${NAMES[m.cap&7][1]}</span>`:m.pr?`<span class="mc-x">→ ${['','','конь','слон','ладья','ферзь'][m.pr]}</span>`:'';
+  return `<span class="mchip ${cls||''}" data-u="${L.uci(m)}">${pieceSVG(t,wh)}<span class="mc-t"><b>${main}</b>${path}${extra}</span></span>`;}
+function chipAt(prefix,uci,cls){const p=posFrom(prefix),m=p.fromUci(uci);return m?mvChip(p,m,cls):'';}
+function wordsAt(prefix,uci){const p=posFrom(prefix),m=p.fromUci(uci);return m?mvWords(p,m):'';}
+function pvSteps(prefix,pv,max){const p=posFrom(prefix),us=p.side;let o='';
+  for(let i=0;i<Math.min(pv.length,max);i++){const m=p.fromUci(pv[i]);if(!m)break;
+    o+=`<li><span class="pv-who">${p.side===us?'вы':'соперник'}</span>${mvChip(p,m,'sm')}</li>`;p.make(m);}
+  return o?`<ol class="pv-steps">${o}</ol>`:'';}
+function pvButton(prefix,pv){return pv.length>1?`<button type="button" class="btn small pv-play" data-pfx="${prefix.join(' ')}" data-pv="${pv.slice(0,6).join(' ')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>Показать на доске</button>`:'';}
+/* animated preview of a line on the board */
+const PV={tok:0};
+function playLine(prefix,pv){
+  stopLine();const tok=++PV.tok;S.preview={pos:posFrom(prefix),last:null,saved:S.arrows};S.arrows=[];S.selected=-1;S.targets=[];render();
+  document.body.classList.add('previewing');let i=0;
+  const step=()=>{if(tok!==PV.tok)return;if(i>=pv.length){setTimeout(()=>{if(tok===PV.tok)stopLine();},1400);return;}
+    const p=S.preview.pos,m=p.fromUci(pv[i]);if(!m){stopLine();return;}
+    S.anim={f:m.f,t:m.t,cap:m.cap,capSq:(m.fl&2)?m.t+((m.pc&WHITE)?16:-16):m.t,castle:(m.fl&4)?(m.t>m.f?{f:m.f+3,t:m.f+1}:{f:m.f-4,t:m.f-1}):null};
+    p.make(m);S.preview.last={f:m.f,t:m.t};S.arrows=[{uci:pv[i],kind:i%2?'threat':'good'}];snd(p.inCheck()?'check':m.cap?'capture':'move');render();i++;setTimeout(step,1000);};
+  setTimeout(step,350);
+}
+function stopLine(){PV.tok++;if(!S.preview)return;S.arrows=S.preview.saved||[];S.preview=null;document.body.classList.remove('previewing');render();}
+document.addEventListener('click',e=>{const b=e.target.closest('.pv-play');if(!b)return;if(S.preview){stopLine();return;}playLine(b.dataset.pfx?b.dataset.pfx.split(' '):[],b.dataset.pv.split(' '));});
 function analyzeReasons(prefix,pv,score){
   const p=posFrom(prefix);const us=p.side,them=us^24;
   const legal=p.legal();const m=legal.find(x=>L.uci(x)===pv[0]);if(!m)return null;
@@ -1656,7 +1730,7 @@ function analyzeReasons(prefix,pv,score){
   const evalOk=score==null||isMate(score)||score>=Math.min(gain,400)-150;
   if(!mate&&gain>=80&&evalOk&&!out.some(o=>o.txt.startsWith('берёт')&&o.txt.includes('чисто')))add(`по расчётному варианту это выигрывает материал — примерно ${fmtP(gain)}`,true);
   if(!out.length)add('спокойный позиционный ход: фигура встаёт на более активное поле, а прямых угроз в позиции нет');
-  return {san,reasons:out,hangB,us,mate,cap:!!m.cap,p0:posFrom(prefix)};
+  return {san,chip:mvChip(p,m),words:mvWords(p,m),reasons:out,hangB,us,mate,cap:!!m.cap,p0:posFrom(prefix)};
 }
 
 /* --- board rendering --- */
@@ -1668,7 +1742,7 @@ function sqToDisp(s){const r=s>>4,c=s&7;return S.flipped?{row:7-r,col:7-c}:{row:
 function legalTargets(from){return pos.legal().filter(m=>m.f===from);}
 function render(){
   if(typeof updateLayout==='function')updateLayout();
-  const bp=S.learn?LN.pos:S.puz?PZ.pos:S.book?BK.pos:S.review?RV.pos:pos,lastM=S.learn?LN.last:S.puz?PZ.last:S.book?BK.last:S.review?RV.last:S.last;
+  const bp=S.preview?S.preview.pos:S.learn?LN.pos:S.puz?PZ.pos:S.book?BK.pos:S.review?RV.pos:pos,lastM=S.preview?S.preview.last:S.learn?LN.last:S.puz?PZ.last:S.book?BK.last:S.review?RV.last:S.last;
   const bd=S.setup?ED.b:bp.b;
   const checkSq=!S.setup&&!(S.learn&&LN.geo)&&bp.inCheck()?bp.ks[bp.side]:-1;
   for(let i=0;i<64;i++){
@@ -1732,6 +1806,8 @@ function counts(p){const c={w:[0,0,0,0,0,0,0],b:[0,0,0,0,0,0,0]};for(let s=0;s<1
 function lostPieces(st,cu){const L=[0,0,0,0,0,0,0];let extra=0;for(const t of [2,3,4,5]){const d=st[t]-cu[t];if(d>0)L[t]=d;else extra-=d;}L[1]=Math.max(0,st[1]-cu[1]-extra);return L;}
 function renderCaptured(){
   const top=$('capTop'),bot=$('capBot');
+  if(S.puz&&PZ.pos){const w=PZ.side0===WHITE,left=Math.max(1,PZ.n-PZ.moves);top.style.visibility='';bot.style.visibility='hidden';$('scorePill').style.visibility='hidden';
+    const h=`<span class="cap-n pz-who"><i class="cap-dot ${w?'w':'b'}"></i>Ходят ${w?'белые':'чёрные'}</span><span class="pz-goal">${PZ.state==='done'?'Мат поставлен ✓':'Поставьте мат в '+pzMoves(left)}</span>`;if(top._h!==h){top._h=h;top.innerHTML=h;}return;}
   if(S.setup||S.puz||S.learn){top.style.visibility=bot.style.visibility='hidden';$('scorePill').style.visibility='hidden';return;}
   $('scorePill').style.visibility='';
   top.style.visibility=bot.style.visibility='';
@@ -1797,7 +1873,7 @@ function checkOver(){
   if(!rest.length||(rest.length===1&&(rest[0]===N||rest[0]===B)))return {type:'material'};
   return null;
 }
-function applyMove(m){
+function applyMove(m){if(S.preview)stopLine();
   const legal=pos.legal();const san=pos.san(m,legal);
   pos.make(m);S.ucis.push(L.uci(m));S.sans.push(san);S.marks.push(null);
   S.last={f:m.f,t:m.t};S.selected=-1;S.targets=[];S.arrows=[];S.over=checkOver();
@@ -1884,29 +1960,29 @@ function coachReport(ply,before,after){
   const prefix=S.ucis.slice(0,ply);
   const p0=posFrom(prefix);const moveNo=p0.full+(p0.side===WHITE?'.':'…');
   const userSan=ruSan(S.sans[ply]);
-  let h=`<div class="coach-head"><span class="badge ${r.cls}">${r.label}</span><span class="mono">${moveNo} ${userSan}${r.sym}</span></div>`;
+  let h=`<div class="coach-head"><span class="badge ${r.cls}">${r.label}</span>${chipAt(prefix,S.ucis[ply],'sm')}</div>`;
   const ex=analyzeReasons(prefix,best.pv,best.score);
   const li=a=>a.map(x=>`<li>${x.txt}</li>`).join('');
   if(isBest){
     h+=`<p>Именно этот ход выбрал бы тренер.</p>${ex&&ex.reasons.length?`<ul class="reasons">${li(ex.reasons.slice(0,2))}</ul>`:''}`;
   }else if(loss<=80){
-    h+=`<p>Хороший ход. Чуть точнее было <b class="mono">${ex?ex.san:''}</b>.</p>`;
-    if(ex)h+=`<details class="more"><summary>Почему ${ex.san} точнее</summary><ul class="reasons">${li(ex.reasons.slice(0,3))}</ul><p class="note">Разница небольшая: ${fmtP(loss)}.</p></details>`;
+    h+=`<p>Хороший ход. Чуть точнее было:</p>${ex?`<div class="chip-row good">${ex.chip}</div>`:''}`;
+    if(ex)h+=`<details class="more"><summary>Почему этот ход точнее</summary><ul class="reasons">${li(ex.reasons.slice(0,3))}</ul><p class="note">Разница небольшая: ${fmtP(loss)}.</p></details>`;
   }else{
     let threatTxt='';
     if(after&&after.lines.length){
       const rep=after.lines[0];const rex=analyzeReasons(S.ucis.slice(0,ply+1),rep.pv,rep.score);
-      if(rex){const tac=rex.reasons.filter(x=>x.tac);threatTxt=`<p>Соперник может ответить <b class="mono" style="color:var(--bad)">${rex.san}</b>${tac.length?' — '+tac[0].txt:''}. Красная стрелка показывает этот ответ.</p>`;
+      if(rex){const tac=rex.reasons.filter(x=>x.tac);threatTxt=`<p>Теперь соперник может ответить${tac.length?' — '+tac[0].txt:''}:</p><div class="chip-row bad">${rex.chip}</div><p class="note">Красная стрелка на доске показывает этот ответ.</p>`;
         S.arrows=[{uci:rep.uci,kind:'threat'}];}
     }
     const mateLost=isMate(best.score)&&best.score>0;
     h+=mateLost?'<p>Здесь был мат, а этот ход его упускает.</p>':threatTxt||'<p>После этого хода позиция заметно ухудшается.</p>';
-    if(ex)h+=`<p>Лучше было <b class="mono" style="color:var(--good)">${ex.san}</b>${ex.reasons.length?': '+ex.reasons[0].txt:''}.</p>`;
-    h+=`<details class="more"><summary>Подробнее</summary>${mateLost?'':`<p>Потеря — примерно ${fmtP(Math.min(loss,2000))}.</p>`}${mateLost&&threatTxt?threatTxt:''}${ex&&ex.reasons.length>1?`<ul class="reasons">${li(ex.reasons.slice(1,3))}</ul>`:''}${ex?`<div class="pv"><span class="lbl">Как могло быть</span><span class="mono">${fmtLine(prefix,best.pv,6)}</span></div>`:''}</details>`;
+    if(ex)h+=`<p>Лучше было${ex.reasons.length?' — '+ex.reasons[0].txt:''}:</p><div class="chip-row good">${ex.chip}</div>`;
+    h+=`<details class="more"><summary>Подробнее</summary>${mateLost?'':`<p>Потеря — примерно ${fmtP(Math.min(loss,2000))}.</p>`}${mateLost&&threatTxt?threatTxt:''}${ex&&ex.reasons.length>1?`<ul class="reasons">${li(ex.reasons.slice(1,3))}</ul>`:''}${ex?`<div class="pv"><span class="lbl">Как могло быть</span>${pvSteps(prefix,best.pv,4)}${pvButton(prefix,best.pv)}</div>`:''}</details>`;
   }
   $('coachBody').innerHTML=h;$('coachCard').hidden=false;
   const bad=['inacc','mistake','blunder'].indexOf(r.cls)>=0;
-  showTip('coach',`<span class="t-d">Разбор вашего хода</span><span class="t-m">${userSan}${r.sym} — ${r.label}</span>`,h,bad?'':'good');
+  showTip('coach',`<span class="t-d">Разбор вашего хода</span><span class="t-m">Ваш ход: ${r.label}</span>`,h,bad?'':'good');
 }
 function cap(s){return s?s[0].toUpperCase()+s.slice(1):s;}
 
@@ -1930,12 +2006,12 @@ function renderHint(r,ply){
   setEval(whiteScore(best.score,r.side));
   hintData={r,ply};
   const li=a=>a.map(x=>`<li>${x.txt}</li>`).join('');
-  let h=`<div class="hint-top"><span class="bigmove">${ex.san}</span></div>`;
+  let h=`<div class="hint-top big-chip">${ex.chip}</div>`;
   if(ex.hangB.length)h+=`<p class="warn"><b>Внимание:</b> сейчас под ударом ${listAcc(ex.p0,ex.hangB)}.</p>`;
   h+=`<ul class="reasons">${li(ex.reasons.slice(0,2))}</ul>`;
   let more=`<p class="verdict">${verdict(best.score,r.side)} <span class="score">${fmtW(whiteScore(best.score,r.side))}</span></p>`;
   if(ex.reasons.length>2)more+=`<ul class="reasons">${li(ex.reasons.slice(2,4))}</ul>`;
-  if(best.pv.length>1)more+=`<div class="pv"><span class="lbl">Как может пойти игра</span><span class="mono">${fmtLine(prefix,best.pv,6)}</span></div>`;
+  if(best.pv.length>1)more+=`<div class="pv"><span class="lbl">Как может пойти игра</span>${pvSteps(prefix,best.pv,4)}${pvButton(prefix,best.pv)}</div>`;
   const alts=r.lines.slice(1);
   if(alts.length){
     more+='<div class="alts"><div class="lbl">Другие ходы — нажмите, чтобы показать стрелкой</div>';
@@ -1948,16 +2024,16 @@ function renderHint(r,ply){
       else if(diff<=80)why='немного слабее';
       else{why='заметно слабее';
         if(a.pv.length>1){const rx=analyzeReasons(prefix.concat([a.pv[0]]),a.pv.slice(1));
-          if(rx){const tac=rx.reasons.find(x=>x.tac);if(tac)why+=`: соперник ответит ${rx.san} и ${tac.txt}`;}}
+          if(rx){const tac=rx.reasons.find(x=>x.tac);if(tac)why+=`: соперник ответит (${rx.words}) и ${tac.txt}`;}}
       }
-      more+=`<button type="button" class="alt" data-i="${i+1}"><span class="m">${ax.san}</span><span>${why}</span></button>`;
+      more+=`<button type="button" class="alt" data-i="${i+1}">${ax.chip.replace('class="mchip ','class="mchip sm ')}<span>${why}</span></button>`;
     });
     more+='</div>';
   }
   more+=`<p class="note">Расчёт: глубина ${r.depth}, ${(r.nodes/1000).toFixed(0)} тыс. позиций.</p>`;
   h+=`<details class="more"><summary>Подробнее</summary>${more}</details>`;
   $('hintBody').innerHTML=h;
-  if(S.lamp>0)showTip('hint',`<span class="t-d">Лучший ход</span><span class="t-m">Лучший ход: ${ex.san}</span>`,h);
+  if(S.lamp>0)showTip('hint',`<span class="t-d">Лучший ход</span><span class="t-m">${ex.words}</span>`,h);
   S.arrows=[{uci:best.uci,kind:'best'}];
   renderArrows();
 }
@@ -2000,6 +2076,7 @@ boardEl.addEventListener('pointerdown',e=>{
   if(S.review)return;
   if(S.puz){pzClick(s);return;}
   if(S.learn){lnClick(s);return;}
+  if(S.preview){stopLine();return;}
   if(S.book){if(BK.quiz)quizClick(s);return;}
   if(!canMoveNow())return;
   if(S.selected>=0&&S.targets.some(m=>m.t===s)){tryMove(S.selected,s);return;}
@@ -2627,7 +2704,7 @@ function bookStep(n){
   $('bkMoves').querySelectorAll('.bk-mv').forEach(b=>b.classList.toggle('on',+b.dataset.k===n));
   let c;
   if(n===0)c='<div class="bk-cm-move">Начальная позиция</div><p>Листайте ходы кнопками ниже или стрелками ← → на клавиатуре. Оранжевая стрелка на доске показывает следующий ход.</p>';
-  else c=`<div class="bk-cm-move">${op.nums[n-1]} ${op.sans[n-1]}${bkSuffix(op,n-1)}</div><p>${op.mv[n-1][1]}</p>`;
+  else c=`<div class="bk-cm-head"><span class="bk-cm-n">Ход ${n}</span>${mvChip(null,lm,'sm')}<span class="bk-cm-sfx">${bkSuffix(op,n-1)}</span></div><p>${op.mv[n-1][1]}</p>`;
   if(n===op.ucis.length&&n>0)c+='<p class="note">Конец линии. Отсюда можно продолжить партию с компьютером или в режиме анализа.</p>';
   $('bkComment').innerHTML=c;
   S.arrows=BK.quiz?[]:(n<op.ucis.length?[{uci:op.ucis[n],kind:'best'}]:[]);
@@ -3159,23 +3236,24 @@ function rvProgress(){const n=S.ucis.length;$('rvProg').textContent=RV.step===0?
   $('rvPlay').innerHTML=RV.playing?'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>Стоп':'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>'+(RV.step>=n?'Сначала':RV.step===0?'Начать':'Продолжить');
   $('rvPrev').disabled=RV.step===0;$('rvNext').disabled=RV.step>=n;}
 function rvComment(h){$('rvComment').innerHTML=h;}
+function rvChip(i){return chipAt(S.ucis.slice(0,i),S.ucis[i],'sm');}
 function rvMoveText(i){return moveLabel(i).replace(/[!?]+$/,'');}
-function rvNeutral(i){const mine=rvIsMine(i);rvComment(`<div class="bk-cm-move">${rvMoveText(i)}</div><p>${mine?'Ваш ход.':'Ход соперника.'}</p>`);}
+function rvNeutral(i){const mine=rvIsMine(i);rvComment(`<div class="bk-cm-head">${rvChip(i)}</div><p>${mine?'Ваш ход.':'Ход соперника.'}</p>`);}
 function rvGood(i,ev){
   const ex=analyzeReasons(S.ucis.slice(0,i),[S.ucis[i]]);
   const why=ex?ex.reasons.slice(0,2).map(x=>x.txt):[];
-  rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span><span class="mono">${rvMoveText(i)}${ev.mk.sym}</span></div>${why.length?`<ul class="reasons">${why.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}`);
+  rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span>${rvChip(i)}</div>${why.length?`<ul class="reasons">${why.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}`);
 }
 function rvBad(i,ev){
   const prefix=S.ucis.slice(0,i),bx=analyzeReasons(prefix,ev.best.pv,ev.best.score),me=rvMoveText(i);
   let threat='',mateThreat=null;
   const mated=isMate(ev.userScore)&&ev.userScore<0;
-  if(ev.r2&&ev.r2.lines.length){const rx=analyzeReasons(S.ucis.slice(0,i+1),ev.r2.lines[0].pv);if(rx){const tac=rx.reasons.filter(x=>x.tac);if(mated)mateThreat=rx.san;threat=`<p>После этого соперник может ответить <b class="mono">${rx.san}</b>${tac.length?' — '+tac[0].txt:''}.</p>`;}}
+  if(ev.r2&&ev.r2.lines.length){const rx=analyzeReasons(S.ucis.slice(0,i+1),ev.r2.lines[0].pv);if(rx){const tac=rx.reasons.filter(x=>x.tac);if(mated)mateThreat=rx.words;threat=`<p>После этого соперник может ответить${tac.length?' — '+tac[0].txt:''}:</p><div class="chip-row bad">${rx.chip}</div>`;}}
   const lossTxt=isMate(ev.best.score)&&ev.best.score>0?'упущен форсированный мат':mated?`после него соперник может поставить мат${mateThreat?'':''}`:`потеря примерно ${fmtP(Math.min(ev.mk.loss,2000))}`;
   if(bx&&mateThreat){bx.reasons=bx.reasons.filter(x=>x.txt.indexOf('спокойный позиционный')<0);bx.reasons.unshift({txt:`закрывает угрозу мата ${mateThreat}`,tac:true});}
-  rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span><span class="mono">${me}${ev.mk.sym}</span></div>
-    <p>В партии было сыграно <b class="mono" style="color:var(--bad)">${me.split(' ').pop()}</b>: ${lossTxt}.</p>${threat}
-    ${bx?`<p>Лучше было <b class="mono" style="color:var(--good)">${bx.san}</b>:</p><ul class="reasons">${bx.reasons.slice(0,3).map(x=>`<li>${x.txt}</li>`).join('')}</ul>`:''}
+  rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span>${rvChip(i)}</div>
+    <p>В партии было сыграно — ${lossTxt}:</p><div class="chip-row bad">${chipAt(prefix,S.ucis[i])}</div>${threat}
+    ${bx?`<p>Лучше было:</p><div class="chip-row good">${bx.chip}</div><ul class="reasons">${bx.reasons.slice(0,3).map(x=>`<li>${x.txt}</li>`).join('')}</ul>`:''}
     <p class="rv-legend"><i class="lg r"></i>сыгранный ход <i class="lg g"></i>лучший ход</p><p class="note">Нажмите «Продолжить» или «Следующий ход».</p>`);
   S.arrows=[{uci:S.ucis[i],kind:'threat'},{uci:ev.best.uci,kind:'good'}];
   if(ev.r1.lines.length)setEval(whiteScore(ev.best.score,ev.side));
@@ -3189,7 +3267,7 @@ async function rvRun(){
       const i=RV.step;S.arrows=[];
       let ev=null;
       if(rvIsMine(i)){
-        if(!RV.cache[i])rvComment(`<div class="bk-cm-move">${rvMoveText(i)}</div><p class="empty">Оцениваю ход<span class="dots"></span></p>`);
+        if(!RV.cache[i])rvComment(`<div class="bk-cm-head">${rvChip(i)}</div><p class="empty">Оцениваю ход<span class="dots"></span></p>`);
         ev=await rvEval(i);if(tok!==RV.tok)return;
       }
       rvPrefetch(i+1);
@@ -3198,7 +3276,7 @@ async function rvRun(){
       if(ev&&ev.r2&&ev.r2.lines.length)setEval(whiteScore(ev.r2.lines[0].score,ev.r2.side));
       else if(ev)setEval(whiteScore(ev.best.score,ev.side));
       if(ev&&(ev.mk.cls==='best'||ev.mk.cls==='good')){rvGood(i,ev);if(!await rvSleep(rvSpeed()*1.8,tok))return;}
-      else if(ev&&BADC.indexOf(ev.mk.cls)>=0){rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span><span class="mono">${rvMoveText(i)}${ev.mk.sym}</span></div><p>Так было сыграно в партии.</p>`);if(!await rvSleep(rvSpeed(),tok))return;}
+      else if(ev&&BADC.indexOf(ev.mk.cls)>=0){rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span>${rvChip(i)}</div><p>Так было сыграно в партии.</p>`);if(!await rvSleep(rvSpeed(),tok))return;}
       else{rvNeutral(i);if(!await rvSleep(rvSpeed(),tok))return;}
     }
     if(tok===RV.tok&&RV.step>=S.ucis.length){RV.playing=false;rvSummary();rvProgress();}
@@ -3218,12 +3296,12 @@ function rvTryJump(){const cat=RV.pendingJump;if(!cat||!S.review)return;const li
 function rvShowCat(cat){RV.cat=cat;for(let i=0;i<S.ucis.length;i++)if(rvIsMine(i)&&!rvClsOf(i))rvEval(i);rvRenderCats();}
 async function rvJump(i){
   rvPause();S.arrows=[];RV.ack=i;
-  rvComment(`<div class="bk-cm-move">${rvMoveText(i)}</div><p class="empty">Загружаю разбор хода<span class="dots"></span></p>`);
+  rvComment(`<div class="bk-cm-head">${rvChip(i)}</div><p class="empty">Загружаю разбор хода<span class="dots"></span></p>`);
   let ev=null;try{ev=await rvEval(i);}catch(e){}
   if(!S.review)return;
   if(!ev){rvSetPos(i+1,false);rvNeutral(i);return;}
   if(BADC.indexOf(ev.mk.cls)>=0){rvSetPos(i,false);rvBad(i,ev);}
-  else{rvSetPos(i+1,false);if(ev.mk.cls==='best'||ev.mk.cls==='good')rvGood(i,ev);else rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span><span class="mono">${rvMoveText(i)}${ev.mk.sym}</span></div>`);}
+  else{rvSetPos(i+1,false);if(ev.mk.cls==='best'||ev.mk.cls==='good')rvGood(i,ev);else rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span>${rvChip(i)}</div>`);}
 }
 async function rvSummary(){
   const c={best:0,good:0,inacc:0,mistake:0,blunder:0,n:0,sum:0};
@@ -3263,7 +3341,7 @@ $('rvPrev').onclick=()=>{rvPause();S.arrows=[];RV.ack=RV.step-1;rvSetPos(RV.step
 $('rvNext').onclick=()=>{rvPause();S.arrows=[];const i=RV.step;RV.ack=i;rvSetPos(i+1,true);rvNeutralAt();};
 $('rvFirst').onclick=()=>{rvPause();S.arrows=[];RV.ack=-1;rvSetPos(0,false);rvComment('<div class="bk-cm-move">Начальная позиция</div><p>Нажмите «Начать», чтобы проиграть партию заново.</p>');};
 function rvNeutralAt(){const i=RV.step-1;if(i<0){rvComment('<div class="bk-cm-move">Начальная позиция</div>');return;}
-  const c=RV.cache[i];if(c)c.then(ev=>{if(!ev||RV.step!==i+1)return;if(ev.mk.cls==='best'||ev.mk.cls==='good')rvGood(i,ev);else rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span><span class="mono">${rvMoveText(i)}${ev.mk.sym}</span></div>`);}).catch(()=>{});else rvNeutral(i);}
+  const c=RV.cache[i];if(c)c.then(ev=>{if(!ev||RV.step!==i+1)return;if(ev.mk.cls==='best'||ev.mk.cls==='good')rvGood(i,ev);else rvComment(`<div class="coach-head"><span class="badge ${ev.mk.cls}">${ev.mk.label}</span>${rvChip(i)}</div>`);}).catch(()=>{});else rvNeutral(i);}
 document.addEventListener('keydown',e=>{if(!S.review)return;const tg=e.target.tagName;if(tg==='INPUT'||tg==='SELECT'||tg==='TEXTAREA')return;
   if(e.key==='Escape'&&$('endov').hidden)closeReview();else if(e.key===' '){e.preventDefault();$('rvPlay').click();}else if(e.key==='ArrowRight')$('rvNext').click();else if(e.key==='ArrowLeft')$('rvPrev').click();});
 
@@ -3313,7 +3391,7 @@ function pzRenderList(){
 }
 function pzLoad(lvl,idx){
   PZ.lvl=lvl;PZ.idx=idx;const pz=PUZ[lvl][idx];
-  PZ.pos=new L.Pos().load(pz.fen);PZ.n=pzN(lvl);PZ.moves=0;PZ.mistakes=0;PZ.hint=false;PZ.state='play';PZ.last=null;PZ.busy=false;
+  PZ.pos=new L.Pos().load(pz.fen);PZ.side0=PZ.pos.side;PZ.n=pzN(lvl);PZ.moves=0;PZ.mistakes=0;PZ.hint=false;PZ.state='play';PZ.last=null;PZ.busy=false;
   S.flipped=PZ.pos.side===BLACK;S.arrows=[];S.selected=-1;S.targets=[];
   const who=PZ.pos.side===WHITE?'Белые':'Чёрные',v=pzStore()[lvl+'-'+idx];
   pzMsg(`<div class="bk-cm-move">Задача ${idx+1}</div><p><b>${who} начинают и ставят мат в ${pzMoves(PZ.n)}.</b></p>${v?'<p class="note">Эта задача уже решена — можно решить ещё раз.</p>':''}<p class="note">Нажмите на фигуру, затем на клетку.</p>`);
