@@ -908,6 +908,22 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
 .bk-cm-n{font-weight:800;font-size:.85rem;color:var(--muted)}
 .bk-cm-sfx{font-weight:800;color:var(--accent-text)}
 .coach-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.hstrip{display:none}
+@media (max-width:600px){
+  .hstrip:not([hidden]){display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;padding:8px 10px 8px 8px;border-radius:14px;background:var(--panel);border:2px solid #e39a1f;color:var(--ink);font:700 .86rem/1.3 var(--font-ui);box-shadow:0 3px 0 rgba(90,52,24,.3)}
+  body.skin-fantasy .hstrip:not([hidden]){background:rgba(251,241,214,.97)}
+  body.skin-fantasy.mode-dark .hstrip:not([hidden]){background:rgba(44,36,52,.96)}
+  .hstrip.coach{border-color:#d0402a}.hstrip.coach.good{border-color:#6faa3e}
+  .hs-ic{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ffd84a;color:#6b4a08}
+  .hstrip.coach .hs-ic{background:#e2524a;color:#fff}.hstrip.coach.good .hs-ic{background:#6faa3e;color:#fff}
+  .hs-ic svg{width:17px;height:17px}
+  .hs-t{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .hs-go{flex:none;font-size:1.5rem;line-height:1;color:var(--wood,#8c5a2e)}
+  .tip.side:not(.sheet-open){display:none!important}
+  .tip.side.sheet-open{max-height:75vh}
+  .app{padding-bottom:16px!important}
+}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -954,6 +970,7 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
       </div>
     </div>
     <div class="capbar" id="capBot"></div>
+    <button type="button" class="hstrip" id="hstrip" hidden><span class="hs-ic"></span><span class="hs-t"></span><span class="hs-go" aria-hidden="true">›</span></button>
     <div class="actions">
       <button class="btn primary icon lamp0" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg><span class="lamp-a">А</span></button>
       <div class="ctl-wrap" id="lvlWrap"><button class="btn icon" id="lvlBtn" type="button" aria-haspopup="true"></button><div class="lvl-pop" id="lvlPop" role="menu" hidden></div></div>
@@ -1776,7 +1793,7 @@ function renderArrows(){
     const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
     const good=a.kind==='good',main=a.kind==='best'||good,threat=a.kind==='threat';
     const w=main||threat?.17:.11,head=main||threat?.42:.32,hw=main||threat?.24:.18;
-    const color=threat?'rgba(205,48,38,.82)':good?'rgba(46,150,64,.9)':main?'rgba(224,140,20,.88)':'rgba(40,60,90,.42)';
+    const color=threat?'rgba(205,48,38,.82)':good?'rgba(46,150,64,.9)':main?'rgba(236,166,18,.92)':'rgba(95,95,95,.5)';
     const sx=x1+ux*.18,sy=y1+uy*.18,ex=x2-ux*head,ey=y2-uy*head;
     const px=-uy,py=ux;
     h+=`<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;
@@ -1972,7 +1989,7 @@ function coachReport(ply,before,after){
     let threatTxt='';
     if(after&&after.lines.length){
       const rep=after.lines[0];const rex=analyzeReasons(S.ucis.slice(0,ply+1),rep.pv,rep.score);
-      if(rex){const tac=rex.reasons.filter(x=>x.tac);threatTxt=`<p>Теперь соперник может ответить${tac.length?' — '+tac[0].txt:''}:</p><div class="chip-row bad">${rex.chip}</div><p class="note">Красная стрелка на доске показывает этот ответ.</p>`;
+      if(rex){const tac=rex.reasons.filter(x=>x.tac);window.__thr=tac.length?tac[0].txt:null;threatTxt=`<p>Теперь соперник может ответить${tac.length?' — '+tac[0].txt:''}:</p><div class="chip-row bad">${rex.chip}</div><p class="note">Красная стрелка на доске показывает этот ответ.</p>`;
         S.arrows=[{uci:rep.uci,kind:'threat'}];}
     }
     const mateLost=isMate(best.score)&&best.score>0;
@@ -1982,7 +1999,8 @@ function coachReport(ply,before,after){
   }
   $('coachBody').innerHTML=h;$('coachCard').hidden=false;
   const bad=['inacc','mistake','blunder'].indexOf(r.cls)>=0;
-  showTip('coach',`<span class="t-d">Разбор вашего хода</span><span class="t-m">Ваш ход: ${r.label}</span>`,h,bad?'':'good');
+  let short;if(isBest)short=`<b>${r.label}!</b> Именно его выбрал бы тренер`;else if(loss<=80)short=`<b>${r.label}.</b> Был чуть точнее — нажмите, чтобы посмотреть`;else short=`<b>${r.label}.</b> ${window.__thr?'Соперник может ответить — '+window.__thr:'Был ход лучше — нажмите, чтобы посмотреть'}`;window.__thr=null;
+  showTip('coach',`<span class="t-d">Разбор вашего хода</span><span class="t-m">Ваш ход: ${r.label}</span>`,h,bad?'':'good',short);
 }
 function cap(s){return s?s[0].toUpperCase()+s.slice(1):s;}
 
@@ -2033,17 +2051,18 @@ function renderHint(r,ply){
   more+=`<p class="note">Расчёт: глубина ${r.depth}, ${(r.nodes/1000).toFixed(0)} тыс. позиций.</p>`;
   h+=`<details class="more"><summary>Подробнее</summary>${more}</details>`;
   $('hintBody').innerHTML=h;
-  if(S.lamp>0)showTip('hint',`<span class="t-d">Лучший ход</span><span class="t-m">${ex.words}</span>`,h);
-  S.arrows=[{uci:best.uci,kind:'best'}];
+  if(S.lamp>0)showTip('hint',`<span class="t-d">Лучший ход</span><span class="t-m">Почему этот ход</span>`,h,'',capF(ex.reasons.length?ex.reasons[0].txt:verdict(best.score,r.side)));
+  S.arrows=goodArrows(r);
   renderArrows();
 }
 $('hintBody').addEventListener('click',e=>{const b=e.target.closest('.alt');if(b)hintAltClick(b);});
+function goodArrows(r){const b=r.lines[0];return r.lines.slice(1).filter(l=>!(isMate(l.score)&&l.score<0)&&!(isMate(b.score)&&b.score>0&&!isMate(l.score))&&b.score-l.score<=60).map(l=>({uci:l.uci,kind:'alt'})).concat([{uci:b.uci,kind:'best'}]);}
 function hintAltClick(b){
   if(!b||!hintData)return;
   const i=+b.dataset.i,on=b.classList.contains('on');
   document.querySelectorAll('.alt').forEach(x=>x.classList.remove('on'));
   const lines=hintData.r.lines;
-  if(on){S.arrows=[{uci:lines[0].uci,kind:'best'}];}
+  if(on){S.arrows=goodArrows(hintData.r);}
   else{b.classList.add('on');S.arrows=[{uci:lines[0].uci,kind:'alt'},{uci:lines[i].uci,kind:'best'}];}
   renderArrows();
 }
@@ -3888,12 +3907,15 @@ $('hintBtn').onclick=()=>{const v=(S.lamp+1)%3;setLamp(v);
 /* tip under the board */
 const TIPIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>';
 let tipT=0;
-function showTip(kind,title,body,cls){const el=$('tip');clearTimeout(tipT);const op=el.classList.contains('sheet-open');el.className='tip side '+kind+(cls?' '+cls:'')+(op?' sheet-open':'');el.dataset.kind=kind;
+const capF=t=>t?t.charAt(0).toUpperCase()+t.slice(1):'';
+function setStrip(kind,txt,cls){const b=$('hstrip');if(!txt){b.hidden=true;return;}b.className='hstrip '+kind+(cls?' '+cls:'');b.querySelector('.hs-ic').innerHTML=TIPIC;b.querySelector('.hs-t').innerHTML=txt;b.hidden=false;}
+function showTip(kind,title,body,cls,short){const el=$('tip');clearTimeout(tipT);const op=el.classList.contains('sheet-open');el.className='tip side '+kind+(cls?' '+cls:'')+(op?' sheet-open':'');el.dataset.kind=kind;setStrip(kind,short,cls);
   el.innerHTML=`<div class="tip-title"><span class="tip-ic">${TIPIC}</span>${title}</div><div class="tip-body">${body}</div>`;}
-function tipIdle(){const el=$('tip');el.className='tip side idle'+(el.classList.contains('sheet-open')?' sheet-open':'');el.dataset.kind='';
+function tipIdle(){setStrip('',null);const el=$('tip');el.className='tip side idle'+(el.classList.contains('sheet-open')?' sheet-open':'');el.dataset.kind='';
   const t=S.lamp===0?'Подсказки выключены. Нажмите на лампочку под доской: один раз — подсказка на ближайший ход, ещё раз — автоподсказки.':isUserTurn()&&!S.over?'Считаю лучший ход…':'Подсказка появится, когда будет ваш ход.';
   el.innerHTML=`<div class="tip-title"><span class="tip-ic">${TIPIC}</span>Подсказка</div><p class="empty">${t}</p>${S.coach?'':''}`;}
 function hideTip(kind){const el=$('tip');if(!kind||el.dataset.kind===kind||!el.dataset.kind)tipIdle();}
+$('hstrip').addEventListener('click',()=>$('tip').classList.add('sheet-open'));
 $('tip').addEventListener('click',e=>{if(e.target.closest('.tip-title')){$('tip').classList.toggle('sheet-open');return;}const b=e.target.closest('.alt');if(b)hintAltClick(b);});
 /* strength button */
 function lvlIcon(){const b=$('lvlBtn');b.innerHTML=pieceSVG(LVLP[S.level-1],S.userColor!=='b');b.dataset.cap='Сила: '+LVLN[S.level-1];b.setAttribute('aria-label','Сила компьютера: '+LVLN[S.level-1]);}
