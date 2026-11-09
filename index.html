@@ -727,8 +727,8 @@ body:not(.sheet-on) #playPanel .sheet-wrap{display:none}
 .mv-mark.inacc{background:#e0a020}.mv-mark.mistake{background:#e0702a}.mv-mark.blunder{background:#d0302a}.mv-mark.best{background:#3f9a34}
 /* home screen */
 .home{position:fixed;inset:0;z-index:60;overflow-y:auto;display:flex;justify-content:center;align-items:flex-start;padding-block:max(28px,6vh) 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--bg)}
-body.skin-fantasy .home{background:inherit;background-attachment:fixed}
-body.skin-fantasy.mode-dark .home{background:inherit}
+body.skin-fantasy .home{background:transparent}
+body.skin-fantasy.mode-dark .home{background:transparent}
 .home .home-in h1{font-size:3rem;margin:0}
 .home-in{width:100%;max-width:860px;display:flex;flex-direction:column;align-items:center;gap:22px}
 .home h1{margin:0;font-size:2.6rem;text-align:center}
@@ -774,7 +774,7 @@ body.mode-dark .nl-grid .lvl-opt{background:rgba(255,255,255,.05)}
 body.cbg{background-color:#3a2a1e;background-size:cover;background-position:center;background-attachment:fixed}
 body.cbg .topline h1,body.cbg .home .home-in h1{color:#fff7e6;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 body.cbg .home-sub{color:#f3e9d6;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-body.cbg .home{background:inherit;background-attachment:fixed}
+body.cbg .home{background:transparent}
 body.cbg .board{box-shadow:0 0 0 6px rgba(0,0,0,.35),0 0 0 7px rgba(255,255,255,.12),0 24px 50px -12px rgba(0,0,0,.75)}
 body.cbg .status{background:var(--panel);color:var(--ink);font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
 body.cbg .status,body.cbg .score-pill,body.cbg .capbar{box-shadow:0 4px 14px -6px rgba(0,0,0,.5)}
@@ -924,6 +924,27 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
   .tip.side.sheet-open{max-height:75vh}
   .app{padding-bottom:16px!important}
 }
+
+#bgLayer{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:-1;background-size:cover;background-position:center bottom;background-repeat:no-repeat;pointer-events:none}
+body.skin-fantasy,body.cbg{background-image:none!important}
+.exit-btn{display:none}
+.bk-nav.under{position:static;margin:0;padding:0;background:none;box-shadow:none}
+body.skin-fantasy .bk-nav.under,body:not(.skin-fantasy) .bk-nav.under{position:static;margin:0;padding:0;background:none;box-shadow:none}
+.bk-nav.under[hidden]{display:none!important}
+@media (min-width:601px){.board-col .bk-nav.under{max-width:min(680px,calc(100vh - 262px))}}
+@media (max-width:600px){
+  .app{position:relative}
+  .exit-btn{display:inline-flex;position:absolute;top:8px;right:max(16px,env(safe-area-inset-right,0px));width:40px;height:40px;min-width:40px;padding:0;align-items:center;justify-content:center;z-index:5}
+  .exit-btn svg{width:22px;height:22px}
+  .topline h1{padding-right:48px}
+  .topright{grid-template-columns:minmax(0,1fr) 8.4em!important;width:100%}
+  .status{width:100%!important;max-width:none}
+  .score-pill{width:100%;justify-content:center;font-size:.78rem!important}
+  .hstrip.off{display:none!important}
+  .hstrip{height:62px;box-sizing:border-box}
+  .hstrip.idle{border-color:var(--line,#c9a46a);opacity:.85}
+  .hstrip.idle .hs-ic{background:var(--soft,#e8d9b5);color:var(--muted,#7a5d3c)}
+}
 </style>
 <style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -955,10 +976,12 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
     <pattern id="pBasalt" patternUnits="userSpaceOnUse" width="45" height="42"><rect width="45" height="42" fill="#3c3f46"/><g fill="#5a5e68" opacity=".8"><circle cx="8" cy="6" r=".9"/><circle cx="20" cy="18" r=".7"/><circle cx="34" cy="9" r="1"/><circle cx="14" cy="30" r="1"/><circle cx="30" cy="27" r=".8"/><circle cx="40" cy="36" r=".9"/></g><path d="M0 24c12-3 22 2 32-1s10-1 13 0" fill="none" stroke="#2a2c31" stroke-width="1.2"/></pattern>
   </defs>
 </svg>
+<div id="bgLayer" aria-hidden="true"></div>
 <div class="app">
   <section class="board-col">
     <div class="topline">
       <h1>Шахматный тренер</h1>
+      <button class="btn icon exit-btn" id="exitBtn" type="button" aria-label="Выйти на главный экран" title="На главный экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M15 16l4-4-4-4"/><path d="M19 12H9"/></svg></button>
       <div class="topright"><div class="status" id="status" aria-live="polite"></div><div class="score-pill eq" id="scorePill" title="Счёт по взятым фигурам: пешка 1, конь и слон 3, ладья 5, ферзь 9"><span class="sp-v" id="spV">0</span><span class="sp-l" id="spL">равно</span></div></div>
     </div>
     <div class="capbar" id="capTop"></div>
@@ -970,6 +993,13 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
       </div>
     </div>
     <div class="capbar" id="capBot"></div>
+    <div class="bk-nav under" id="bkNav" hidden>
+        <button class="btn" id="bkFirst" type="button" aria-label="К началу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6l-6 6 6 6M7 5v14"/></svg></button>
+        <button class="btn" id="bkPrev" type="button" aria-label="Предыдущий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="btn" id="bkAuto" type="button" aria-label="Проиграть линию"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
+        <button class="btn" id="bkNext" type="button" aria-label="Следующий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="btn" id="bkLast" type="button" aria-label="К концу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M17 5v14"/></svg></button>
+      </div>
     <button type="button" class="hstrip" id="hstrip" hidden><span class="hs-ic"></span><span class="hs-t"></span><span class="hs-go" aria-hidden="true">›</span></button>
     <div class="actions">
       <button class="btn primary icon lamp0" id="hintBtn" type="button" aria-label="Подсказать лучший ход" title="Подсказать лучший ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg><span class="lamp-a">А</span></button>
@@ -1051,13 +1081,6 @@ body:not(.skin-fantasy) .bk-nav{padding:6px;margin:0 -6px;border-radius:12px;bac
       <div class="bk-top"><h2 class="bk-title">Шахматный справочник</h2><button class="btn small" id="bkClose2" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>Закрыть</button></div>
       <div class="bk-cat" id="bkCat"></div>
       <div class="bk-head"><h3 id="bkName"></h3><span class="bk-meta" id="bkMeta"></span></div>
-      <div class="bk-nav">
-        <button class="btn" id="bkFirst" type="button" aria-label="К началу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6l-6 6 6 6M7 5v14"/></svg></button>
-        <button class="btn" id="bkPrev" type="button" aria-label="Предыдущий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button class="btn" id="bkAuto" type="button" aria-label="Проиграть линию"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
-        <button class="btn" id="bkNext" type="button" aria-label="Следующий ход"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <button class="btn" id="bkLast" type="button" aria-label="К концу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M17 5v14"/></svg></button>
-      </div>
       <div class="bk-comment" id="bkComment" aria-live="polite"></div>
       <p class="bk-sum" id="bkSum"></p>
       <div class="bk-train"><button class="btn primary" id="bkQuiz" type="button">Проверь себя: сыграть по памяти</button><div class="bk-qmsg" id="bkQuizMsg" aria-live="polite"></div></div>
@@ -2894,8 +2917,8 @@ function applyLook(){
   document.querySelectorAll('#modeSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===PREF.mode?'true':'false'));
   if(!SCENES[PREF.scene])PREF.scene='meadow';
   if(!CBGS[PREF.cbg])PREF.cbg='walnut';
-  if(PREF.skin==='fantasy'){const u=SCENE_URL[PREF.scene]||(SCENE_URL[PREF.scene]=sceneURL(PREF.scene));document.body.style.backgroundImage=u;}
-  else{const k='c_'+PREF.cbg,u=SCENE_URL[k]||(SCENE_URL[k]=sceneURL(PREF.cbg,CBGS));document.body.style.backgroundImage=u;}
+  if(PREF.skin==='fantasy'){const u=SCENE_URL[PREF.scene]||(SCENE_URL[PREF.scene]=sceneURL(PREF.scene));$('bgLayer').style.backgroundImage=u;document.body.style.backgroundImage='';}
+  else{const k='c_'+PREF.cbg,u=SCENE_URL[k]||(SCENE_URL[k]=sceneURL(PREF.cbg,CBGS));$('bgLayer').style.backgroundImage=u;document.body.style.backgroundImage='';}
   document.body.classList.toggle('cbg',PREF.skin!=='fantasy');
   const set=sceneSet(),cur=PREF.skin==='fantasy'?PREF.scene:PREF.cbg;
   if($('sceneSw').dataset.set!==PREF.skin){$('sceneSw').dataset.set=PREF.skin;$('sceneSw').innerHTML=Object.keys(set).map(k=>`<button type="button" data-v="${k}" class="sw" aria-label="Фон: ${set[k].t}" title="${set[k].t}"><span class="sw-s">${sceneSVG(k,set)}</span><span class="sw-n">${set[k].t}</span></button>`).join('');}
@@ -3908,7 +3931,7 @@ $('hintBtn').onclick=()=>{const v=(S.lamp+1)%3;setLamp(v);
 const TIPIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>';
 let tipT=0;
 const capF=t=>t?t.charAt(0).toUpperCase()+t.slice(1):'';
-function setStrip(kind,txt,cls){const b=$('hstrip');if(!txt){b.hidden=true;return;}b.className='hstrip '+kind+(cls?' '+cls:'');b.querySelector('.hs-ic').innerHTML=TIPIC;b.querySelector('.hs-t').innerHTML=txt;b.hidden=false;}
+function setStrip(kind,txt,cls){const b=$('hstrip');b.hidden=false;if(!txt){b.className='hstrip idle';b.querySelector('.hs-ic').innerHTML=TIPIC;b.querySelector('.hs-t').innerHTML=S.lamp===0?'Нажмите на лампочку — подскажу хороший ход':'Подсказка появится в ваш ход';return;}b.className='hstrip '+kind+(cls?' '+cls:'');b.querySelector('.hs-ic').innerHTML=TIPIC;b.querySelector('.hs-t').innerHTML=txt;b.hidden=false;}
 function showTip(kind,title,body,cls,short){const el=$('tip');clearTimeout(tipT);const op=el.classList.contains('sheet-open');el.className='tip side '+kind+(cls?' '+cls:'')+(op?' sheet-open':'');el.dataset.kind=kind;setStrip(kind,short,cls);
   el.innerHTML=`<div class="tip-title"><span class="tip-ic">${TIPIC}</span>${title}</div><div class="tip-body">${body}</div>`;}
 function tipIdle(){setStrip('',null);const el=$('tip');el.className='tip side idle'+(el.classList.contains('sheet-open')?' sheet-open':'');el.dataset.kind='';
@@ -3931,6 +3954,7 @@ S.sheetOpen=false;try{S.sheetOpen=localStorage.getItem('chess-sheet')==='1';}cat
 $('sheetBtn').onclick=()=>{S.sheetOpen=!S.sheetOpen;try{localStorage.setItem('chess-sheet',S.sheetOpen?'1':'0');}catch(e){}render();};
 function updateLayout(){const other=S.setup||S.book||S.review||S.puz||S.learn;
   document.body.classList.toggle('solo',false);document.body.classList.toggle('sheet-on',!!S.sheetOpen);if(!other&&!$('tip').dataset.kind)tipIdle();$('sheetBtn').setAttribute('aria-pressed',S.sheetOpen?'true':'false');
+  $('bkNav').hidden=!S.book;$('hstrip').classList.toggle('off',!!other);
   const play=!other;$('lvlWrap').hidden=!play||S.userColor==='both';$('sheetBtn').hidden=!play;$('hintBtn').hidden=!play;$('undoBtn').hidden=!play;
 }
 /* coach toggle in menu */
@@ -3963,7 +3987,7 @@ function showHome(){
 }
 function hideHome(){$('home').hidden=true;}
 function backHome(){if(S.homeAfter){S.homeAfter=false;showHome();}}
-$('homeBtn').onclick=showHome;
+$('homeBtn').onclick=showHome;$('exitBtn').onclick=showHome;
 $('homeCont').onclick=hideHome;
 $('home').addEventListener('click',e=>{const c=e.target.closest('[data-go]');if(!c)return;const g=c.dataset.go;
   if(g==='cpu'){openNew(true);return;}
